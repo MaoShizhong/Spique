@@ -1,0 +1,48 @@
+.noUser {
+    align-self: center;
+    display: grid;
+    place-content: center;
+}
+
+.container {
+    height: 45vh;
+}
+
+.formSelect {
+    display: flex;
+
+    & > * {
+        flex: 1;
+    }
+}
+
+.active {
+    background-color: #dddddd;
+}
+
+.formSelect > button {
+    border: none;
+}
+
+.loginSignup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-block: 1rem;
+    width: min(80vw, 360px);
+}
+
+.loginSignup > label {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginSignup > button {
+    margin-top: 1.5rem;
+}
+
+.password_reqs {
+    font-size: 0.8rem;
+    font-style: italic;
+    margin: 0;
+}

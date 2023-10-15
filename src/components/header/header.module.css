@@ -1,0 +1,27 @@
+.header {
+    --logo-size: 1.4rem;
+
+    align-items: center;
+    background-color: slategray;
+    display: flex;
+    font-size: var(--logo-size);
+    justify-content: center;
+    padding: 0.2em;
+}
+
+.logo {
+    margin-right: 0.5rem;
+}
+
+.github {
+    height: calc(var(--logo-size) * 1.2);
+    transition: 150ms ease;
+
+    &:hover {
+        transform: scale(1.25);
+    }
+
+    & > img {
+        height: 100%;
+    }
+}
