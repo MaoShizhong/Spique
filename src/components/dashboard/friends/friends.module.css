@@ -1,0 +1,45 @@
+.friends_list {
+    display: flex;
+    flex-direction: column;
+    width: min(95vw, 1000px);
+}
+
+.friend {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.friend button {
+    border-radius: 0.5rem;
+    transition: 120ms ease;
+
+    &:hover {
+        background-color: var(--accent-l);
+        color: var(--fg-contrast);
+    }
+}
+
+.friend_request {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+
+    & > button {
+        background-color: var(--accent-d);
+    }
+}
+
+.remove {
+    background-color: transparent;
+
+    &::before {
+        content: 'Friend';
+    }
+
+    &:hover::before {
+        content: 'Remove?';
+        padding-inline: 0.2rem;
+    }
+}

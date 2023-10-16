@@ -1,3 +1,30 @@
+.welcome {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.26);
+    display: flex;
+    justify-content: center;
+
+    & > h1 {
+        font-size: 1.4rem;
+        margin: 0.5rem;
+    }
+}
+
+.github {
+    height: 2rem;
+
+    & > img {
+        height: 100%;
+    }
+}
+
+.content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
 .navbar {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.26);
@@ -9,15 +36,38 @@
 
 .page {
     height: 2rem;
+    position: relative;
 
     & > svg {
         color: var(--fg);
         height: 100%;
         transition: 120ms ease;
+
+        &:hover:not(.active) {
+            color: var(--accent-l);
+        }
     }
 
     & > .active {
         color: var(--accent-d);
         transform: scale(1.25);
     }
+
+    & > .requests_count {
+        background-color: var(--accent-l);
+        border-radius: 50%;
+        color: var(--fg-contrast);
+        font-size: 0.6rem;
+        font-weight: 600;
+        position: absolute;
+        right: -0.2rem;
+        top: -0.2rem;
+        width: 1.4em;
+        z-index: 10;
+    }
+}
+
+.active + .requests_count {
+    background-color: var(--accent-d);
+    color: var(--fg);
 }

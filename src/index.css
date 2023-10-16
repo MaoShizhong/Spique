@@ -8,8 +8,10 @@
     --bg-grad: linear-gradient(40deg, var(--bg-d) 0%, var(--bg-m) 60%, var(--bg-l) 100%);
     --fg: #d6dadd;
     --fg-fade: #d6dadd88;
-    --accent-l: #d67467;
+    --fg-contrast: var(--bg-m);
+    --accent-l: #e6b284;
     --accent-d: #3b656b;
+    --error: #cf7d72;
 }
 
 body,
@@ -28,6 +30,11 @@ ul {
 button {
     background-color: transparent;
     border: none;
+    transition: 120ms ease;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 input {
@@ -61,7 +68,7 @@ main {
 @media not (prefers-reduced-motion) {
     body:has(main.login) {
         animation: breathe 9s ease infinite;
-        background-size: 135% 115%;
+        background-size: 160% 115%;
     }
 
     @keyframes breathe {
@@ -69,7 +76,7 @@ main {
             background-position: 0% 83%;
         }
         50% {
-            background-position: 75% 25%;
+            background-position: 85% 25%;
         }
         100% {
             background-position: 0% 83%;
