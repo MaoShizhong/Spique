@@ -1,22 +1,26 @@
-export function LoginForm() {
+import styles from './login.module.css';
+
+export function LoginForm({ hasError }) {
     return (
         <>
-            <label>
-                Username
-                <input
-                    name="username"
-                    type="text"
-                    placeholder="Username"
-                    aria-label="enter username"
-                    autoComplete="off"
-                    required
-                />
-            </label>
+            <input
+                name="username"
+                type="text"
+                placeholder="Username"
+                aria-label="enter username"
+                autoComplete="off"
+                required
+            />
 
-            <label>
-                Password
-                <input name="password" type="password" aria-label="enter password" required />
-            </label>
+            <input
+                name="password"
+                type="password"
+                placeholder="Password"
+                aria-label="enter password"
+                required
+            />
+
+            {hasError && <p className={styles.error}>Incorrect username or password</p>}
 
             <button>Login</button>
         </>

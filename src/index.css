@@ -1,12 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,700;1,400;1,700&display=swap');
 
+:root {
+    --bg-grad: linear-gradient(40deg, #08090c 0%, #111419 63%, #1c242a 100%);
+    --bg-fade: rgba(8, 9, 12, 0.404);
+    --bg-d: #08090c;
+    --bg-m: #111419;
+    --bg-l: #1c242a;
+    --fg: #d6dadd;
+    --fg-fade: #d6dadd88;
+    --accent-l: #d67467;
+    --accent-d: #3b656b;
+}
+
 body,
 button,
 input {
+    color: var(--fg);
     font-family: 'Jost', Helvetica, sans-serif, system-ui;
 }
 
+button {
+    background-color: transparent;
+    border: none;
+}
+
+input {
+    background-color: var(--bg-fade);
+    border: 1px solid var(--fg-fade);
+    border-radius: 0.35rem;
+    padding: 0.5rem;
+}
+
 body {
+    background: var(--bg-grad);
     margin: 0;
 }
 
