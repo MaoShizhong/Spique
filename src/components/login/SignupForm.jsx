@@ -1,8 +1,17 @@
 import styles from './login.module.css';
 
-export function SignupForm() {
+export function SignupForm({ errors }) {
     return (
         <>
+            {errors && (
+                <ul>
+                    {errors.map((error, i) => (
+                        <li key={i} className={styles.error}>
+                            {error.msg}
+                        </li>
+                    ))}
+                </ul>
+            )}
             <p className={styles.reqs}>All fields are required</p>
 
             <input

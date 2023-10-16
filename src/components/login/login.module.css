@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     height: 45vh;
-    transform: translateY(-4rem);
+    transform: translateY(-6rem);
 }
 
 .logo {
@@ -60,5 +60,6 @@
 .error {
     color: var(--accent-l);
     font-size: 0.8em;
+    list-style: none;
     margin: 0;
 }

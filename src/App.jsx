@@ -24,17 +24,19 @@ export default function App() {
     }, []);
 
     async function logout() {
-        const res = await fetchData('/auth/sessions', 'DELETE');
+        // No need to check response status - if no session then logout anyway
+        await fetchData('/auth/sessions', 'DELETE');
 
-        if (res.ok) {
-            setUser(null);
-            goTo('/');
-        }
+        setUser(null);
+        goTo('/');
     }
 
     return (
         <>
-            <button onClick={logout} style={{ position: 'fixed', bottom: 0, left: 0 }}>
+            <button
+                onClick={logout}
+                style={{ position: 'fixed', bottom: 0, right: 0, zIndex: 100 }}
+            >
                 Logout
             </button>
 

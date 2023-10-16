@@ -1,0 +1,23 @@
+.navbar {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.26);
+    display: flex;
+    gap: 15vw;
+    justify-content: center;
+    padding-block: 0.75rem;
+}
+
+.page {
+    height: 2rem;
+
+    & > svg {
+        color: var(--fg);
+        height: 100%;
+        transition: 120ms ease;
+    }
+
+    & > .active {
+        color: var(--accent-d);
+        transform: scale(1.25);
+    }
+}

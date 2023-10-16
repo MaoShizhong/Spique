@@ -9,7 +9,7 @@ import styles from './login.module.css';
 export function Login() {
     const [formType, setFormType] = useState('login');
     const [loading, setLoading] = useState(false);
-    const [hasError, setHasError] = useState(false);
+    const [errors, setErrors] = useState(null);
 
     const { setUser } = useContext(UserContext);
 
@@ -35,11 +35,17 @@ export function Login() {
 
             if (res.ok) {
                 const user = await res.json();
+
+                console.log(user);
                 setUser(user);
                 setLoading(false);
                 goTo(`/${user._id}`);
             } else {
-                setHasError(true);
+                const errors = await res.json();
+
+                console.log(errors);
+
+                setErrors(errors);
                 setLoading(false);
             }
         } catch (error) {
@@ -49,7 +55,8 @@ export function Login() {
     }
 
     return (
-        <main className={styles.noUser}>
+        // static 'login' class for bg-gradient animation for login screen only
+        <main className={`${styles.noUser} login`}>
             <div className={styles.container}>
                 <img className={styles.logo} src="/spique-full.png" alt="Website logo image" />
 
@@ -74,9 +81,9 @@ export function Login() {
 
                         <form className={styles.loginSignup} onSubmit={submitForm}>
                             {formType === 'login' ? (
-                                <LoginForm hasError={hasError} />
+                                <LoginForm hasError={errors} />
                             ) : (
-                                <SignupForm />
+                                <SignupForm errors={errors} />
                             )}
                         </form>
                     </>
