@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../App';
 import { fetchData } from '../../helpers/fetch';
+import { Loading } from '../loading/Loading';
 import { Navbar } from './Navbar';
 import { ChannelList } from './channels/ChannelList';
 import styles from './dashboard.module.css';
@@ -13,6 +14,7 @@ export function Dashboard() {
     const [channels, setChannels] = useState([]);
     const [friends, setFriends] = useState([]);
     const [page, setPage] = useState('channels');
+    const [loading, setLoading] = useState(true);
 
     const friendRequestCount = friends.filter((friend) => friend.status === 'incoming').length;
 
@@ -32,6 +34,8 @@ export function Dashboard() {
                 const friends = await usersFriends.json();
                 setFriends(friends);
             }
+
+            setLoading(false);
         }
 
         getChannelsAndFriends();
@@ -39,7 +43,9 @@ export function Dashboard() {
 
     return (
         <>
-            {user && (
+            {loading ? (
+                <Loading text="Fetching data..." />
+            ) : (
                 <>
                     <header className={styles.welcome}>
                         <h1>Hello, {user.username}!</h1>

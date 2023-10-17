@@ -3,9 +3,9 @@
 :root {
     --bg-fade: rgba(8, 9, 12, 0.404);
     --bg-d: #08090c;
-    --bg-m: #13161b;
-    --bg-l: #1c242a;
-    --bg-grad: linear-gradient(40deg, var(--bg-d) 0%, var(--bg-m) 60%, var(--bg-l) 100%);
+    --bg-m: #111318;
+    --bg-l: #26313a;
+    --bg-grad: linear-gradient(45deg, var(--bg-d) 0%, var(--bg-m) 55%, var(--bg-l) 100%);
     --fg: #d6dadd;
     --fg-fade: #d6dadd88;
     --fg-contrast: var(--bg-m);
@@ -16,7 +16,8 @@
 
 body,
 button,
-input {
+input,
+dialog {
     color: var(--fg);
     font-family: 'Jost', Helvetica, sans-serif, system-ui;
     font-size: 95%;
@@ -24,7 +25,17 @@ input {
 
 ul {
     margin-top: 0;
+}
+
+ul,
+dialog {
+    background-color: transparent;
+    border: none;
     padding: 0;
+}
+
+dialog::backdrop {
+    backdrop-filter: brightness(0.4);
 }
 
 button {

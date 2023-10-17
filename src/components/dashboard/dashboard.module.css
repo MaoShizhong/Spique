@@ -25,6 +25,13 @@
     width: 100%;
 }
 
+.filter {
+    align-items: center;
+    display: flex;
+    gap: 0.75rem;
+    margin-block: 1rem;
+}
+
 .navbar {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.26);

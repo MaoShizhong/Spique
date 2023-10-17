@@ -1,30 +1,59 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { Filter } from '../Filter';
+import { AddFriends } from './AddFriends';
+import { RemoveButton } from './friend_request_buttons/RemoveButton';
+import { RespondButtons } from './friend_request_buttons/RespondButtons';
 import styles from './friends.module.css';
 
 export function FriendsList({ friends }) {
+    const [filteredFriends, setFilteredFriends] = useState(friends);
+    const [isAddModalShowing, setIsAddModalShowing] = useState(false);
+
+    const modalRef = useRef(null);
+
+    function filterFriends(e) {
+        const filtered = friends.filter((friend) => friend.user.username.includes(e.target.value));
+
+        setFilteredFriends(filtered);
+    }
+
+    useEffect(() => {
+        if (isAddModalShowing) modalRef.current?.showModal();
+    }, [isAddModalShowing]);
+
     return (
         <>
-            {/* Search bar here */}
+            <Filter callback={filterFriends} />
+
+            <button className={styles.add} onClick={() => setIsAddModalShowing(true)}>
+                Add friends
+            </button>
+
             <div className={styles.friends_list}>
-                {friends.map((friend) => (
+                {filteredFriends.map((friend) => (
                     <Fragment key={friend.user._id}>
                         <div className={styles.friend}>
-                            {friend.user.username}
+                            <span>{friend.user.username}</span>
+
                             {friend.status === 'incoming' ? (
-                                <div className={styles.friend_request}>
-                                    Accept?
-                                    <button aria-label="accept friend request">{'\u2713'}</button>
-                                    <button aria-label="reject friend request">{'\u2A2F'}</button>
-                                </div>
+                                <RespondButtons />
                             ) : friend.status === 'pending' ? (
                                 <div>Pending</div>
                             ) : (
-                                <button className={styles.remove}></button>
+                                <RemoveButton />
                             )}
                         </div>
                     </Fragment>
                 ))}
             </div>
+
+            {isAddModalShowing && (
+                <AddFriends
+                    friends={friends}
+                    setIsAddModalShowing={setIsAddModalShowing}
+                    ref={modalRef}
+                />
+            )}
         </>
     );
 }
