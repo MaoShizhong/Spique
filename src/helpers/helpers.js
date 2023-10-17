@@ -17,3 +17,11 @@ export async function fetchData(endpoint, method, form) {
         return err;
     }
 }
+
+export function sortFriends(friendsList) {
+    const incoming = friendsList.filter((friend) => friend.status === 'incoming');
+    const requested = friendsList.filter((friend) => friend.status === 'requested');
+    const accepted = friendsList.filter((friend) => friend.status === 'accepted');
+
+    return [...incoming, ...requested, ...accepted];
+}

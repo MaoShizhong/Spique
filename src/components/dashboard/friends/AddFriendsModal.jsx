@@ -1,12 +1,12 @@
 import { forwardRef, useCallback, useEffect, useState } from 'react';
-import { fetchData } from '../../../helpers/fetch';
+import { fetchData } from '../../../helpers/helpers';
 import { AddButton } from './friend_request_buttons/AddButton';
 import { RemoveButton } from './friend_request_buttons/RemoveButton';
 import { RespondButtons } from './friend_request_buttons/RespondButtons';
 import styles from './friends.module.css';
 
-export const AddFriends = forwardRef(function AddFriends(
-    { friends, setIsAddModalShowing },
+export const AddFriendsModal = forwardRef(function AddFriendsModal(
+    { friends, setFriends, setIsAddModalShowing },
     modalRef
 ) {
     const [searchText, setSearchText] = useState('');
@@ -44,7 +44,7 @@ export const AddFriends = forwardRef(function AddFriends(
 
     function closeModal(e) {
         // Allows closing upon clicking outside modal (or dedicated close button)
-        if (e.target.tagName === 'DIALOG' || e.target.tagName === 'BUTTON') {
+        if (e.target.tagName === 'DIALOG' || e.target.id === 'close') {
             modalRef.current.close();
             setIsAddModalShowing(false);
         }
@@ -52,7 +52,7 @@ export const AddFriends = forwardRef(function AddFriends(
 
     return (
         <dialog onClick={closeModal} ref={modalRef}>
-            <button className={styles.close} onClick={closeModal}>
+            <button id="close" className={styles.close} onClick={closeModal}>
                 {'\u2A2F'}
             </button>
 
@@ -76,13 +76,16 @@ export const AddFriends = forwardRef(function AddFriends(
                             <div key={user._id} className={styles.friend}>
                                 <span>{user.username}</span>
                                 {friendStatus(user) === 'incoming' ? (
-                                    <RespondButtons />
-                                ) : friendStatus(user) === 'pending' ? (
-                                    <div>Pending</div>
+                                    <RespondButtons
+                                        targetUserID={user._id}
+                                        setFriends={setFriends}
+                                    />
+                                ) : friendStatus(user) === 'requested' ? (
+                                    <div>Requested</div>
                                 ) : friendStatus(user) === 'accepted' ? (
-                                    <RemoveButton />
+                                    <RemoveButton targetUserID={user._id} setFriends={setFriends} />
                                 ) : (
-                                    <AddButton />
+                                    <AddButton targetUserID={user._id} setFriends={setFriends} />
                                 )}
                             </div>
                         ))}

@@ -1,10 +1,16 @@
+import { forwardRef } from 'react';
 import styles from './dashboard.module.css';
 
-export function Filter({ callback }) {
+export const Filter = forwardRef(function Filter({ callback }, inputRef) {
     return (
         <div className={styles.filter}>
             Filter:
-            <input type="text" aria-label="Filter" onChange={callback} />
+            <input
+                type="text"
+                aria-label="Filter"
+                ref={inputRef}
+                onChange={(e) => callback(e.target)}
+            />
         </div>
     );
-}
+});

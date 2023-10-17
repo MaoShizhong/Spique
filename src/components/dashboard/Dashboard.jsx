@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../App';
-import { fetchData } from '../../helpers/fetch';
+import { fetchData, sortFriends } from '../../helpers/helpers';
 import { Loading } from '../loading/Loading';
+import { Github } from './Github';
 import { Navbar } from './Navbar';
 import { ChannelList } from './channels/ChannelList';
 import styles from './dashboard.module.css';
@@ -20,6 +21,8 @@ export function Dashboard() {
 
     useEffect(() => {
         async function getChannelsAndFriends() {
+            if (!user) return;
+
             const [usersChannels, usersFriends] = await Promise.all([
                 fetchData(`/users/${user._id}/channels`, 'GET'),
                 fetchData(`/users/${user._id}/friends`, 'GET'),
@@ -32,7 +35,7 @@ export function Dashboard() {
 
             if (usersFriends.ok) {
                 const friends = await usersFriends.json();
-                setFriends(friends);
+                setFriends(sortFriends(friends));
             }
 
             setLoading(false);
@@ -49,22 +52,14 @@ export function Dashboard() {
                 <>
                     <header className={styles.welcome}>
                         <h1>Hello, {user.username}!</h1>
-                        <a
-                            href="https://github.com/MaoShizhong/Spique"
-                            target="_blank"
-                            rel="noreferrer"
-                            aria-label="link to project repo"
-                            className={styles.github}
-                        >
-                            <img src="/github.png" alt="github link" />
-                        </a>
+                        <Github classObj={styles.github} />
                     </header>
 
                     <main className={styles.content}>
                         {page === 'channels' ? (
                             <ChannelList channels={channels} />
                         ) : page === 'friends' ? (
-                            <FriendsList friends={friends} />
+                            <FriendsList friends={friends} setFriends={setFriends} />
                         ) : (
                             <Settings />
                         )}

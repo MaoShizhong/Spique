@@ -13,8 +13,30 @@
 }
 
 .logo {
-    height: auto;
-    width: 180px;
+    position: relative;
+
+    & > img {
+        height: auto;
+        width: 180px;
+    }
+}
+
+.github {
+    bottom: 0.7rem;
+    display: block;
+    height: 1.75rem;
+    position: absolute;
+    right: -1.75rem;
+    transition: 120ms ease;
+
+    & > img {
+        height: 100%;
+    }
+
+    &:hover {
+        transform: scale(1.25);
+        transform-origin: bottom;
+    }
 }
 
 .formSelect {

@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { Login } from './components/login/Login';
-import { fetchData } from './helpers/fetch';
+import { fetchData } from './helpers/helpers';
 
 export const UserContext = createContext({
     user: null,
@@ -22,6 +21,11 @@ export default function App() {
             }
         })();
     }, []);
+
+    useEffect(() => {
+        if (user) goTo('/dashboard');
+        else goTo('/login');
+    }, [user, goTo]);
 
     async function logout() {
         // No need to check response status - if no session then logout anyway
@@ -46,7 +50,7 @@ export default function App() {
                     setUser: setUser,
                 }}
             >
-                {user ? <Outlet /> : <Login />}
+                <Outlet />
             </UserContext.Provider>
         </>
     );

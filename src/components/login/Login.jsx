@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
+import { Github } from '../dashboard/Github';
 import { Loading } from '../loading/Loading';
 import { LoginForm } from './LoginForm';
 import { SignupForm } from './SignupForm';
@@ -36,14 +37,13 @@ export function Login() {
             if (res.ok) {
                 const user = await res.json();
 
-                console.log(user);
                 setUser(user);
                 setLoading(false);
-                goTo(`/${user._id}`);
+            } else if (res.status === 401) {
+                setErrors(true);
+                setLoading(false);
             } else {
                 const errors = await res.json();
-
-                console.log(errors);
 
                 setErrors(errors);
                 setLoading(false);
@@ -54,11 +54,20 @@ export function Login() {
         }
     }
 
+    // Reset errors when changing form
+    function changeForm(type) {
+        setErrors(null);
+        setFormType(type);
+    }
+
     return (
         // static 'login' class for bg-gradient animation for login screen only
         <main className={`${styles.noUser} login`}>
             <div className={styles.container}>
-                <img className={styles.logo} src="/spique-full.png" alt="Website logo image" />
+                <div className={styles.logo}>
+                    <img src="/spique-full.png" alt="Website logo image" />
+                    <Github classObj={styles.github} />
+                </div>
 
                 {loading ? (
                     <Loading text={formType === 'login' ? 'Logging in' : 'Creating account'} />
@@ -67,13 +76,13 @@ export function Login() {
                         <nav className={styles.formSelect}>
                             <button
                                 className={formType === 'login' ? styles.active : ''}
-                                onClick={() => setFormType('login')}
+                                onClick={() => changeForm('login')}
                             >
                                 Login
                             </button>
                             <button
                                 className={formType === 'signup' ? styles.active : ''}
-                                onClick={() => setFormType('signup')}
+                                onClick={() => changeForm('signup')}
                             >
                                 Create account
                             </button>
