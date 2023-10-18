@@ -1,0 +1,51 @@
+.message {
+    background-color: var(--bg-l);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    padding: 0.5rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+
+    & > p {
+        margin-bottom: 0;
+    }
+
+    &.own {
+        align-self: flex-end;
+        background-color: var(--accent-d);
+    }
+}
+
+.details {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+
+    & > .name {
+        font-weight: bold;
+    }
+
+    & > .timestamp {
+        align-items: center;
+        display: flex;
+        font-size: 0.7rem;
+    }
+}
+
+.own > .details {
+    flex-direction: row-reverse;
+}
+
+.edited {
+    align-self: flex-end;
+    display: flex;
+    font-size: 0.7em;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+.own .edited {
+    align-self: flex-start;
+}

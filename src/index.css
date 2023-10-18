@@ -2,6 +2,7 @@
 
 :root {
     --bg-fade: rgba(8, 9, 12, 0.404);
+    --bg-heavy-fade: rgba(0, 0, 0, 0.26);
     --bg-d: #08090c;
     --bg-m: #111318;
     --bg-l: #26313a;
@@ -12,6 +13,10 @@
     --accent-l: #e6b284;
     --accent-d: #3b656b;
     --error: #cf7d72;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body,
@@ -63,7 +68,7 @@ body {
 #root {
     display: flex;
     flex-direction: column;
-    min-height: 100svh;
+    height: 100svh;
 }
 
 a {

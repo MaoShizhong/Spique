@@ -22,7 +22,11 @@ export function ChannelList({ channels }) {
                     <p>No channels</p>
                 ) : (
                     filteredChannels.map((channel) => (
-                        <Link key={channel._id} to={`/channels/${channel._id}`}>
+                        <Link
+                            key={channel._id}
+                            to={`/channels/${channel._id}`}
+                            state={{ channelName: channel.name }}
+                        >
                             <div>{channel.name}</div>
                         </Link>
                     ))

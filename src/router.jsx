@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
+import { Channel } from './components/channels/Channel';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { ErrorPage } from './components/error/ErrorPage';
 import { Login } from './components/login/Login';
@@ -13,6 +14,7 @@ export const router = createBrowserRouter([
             { path: '/error', element: <ErrorPage /> },
             { path: '/login', element: <Login /> },
             { path: '/dashboard', element: <Dashboard /> },
+            { path: '/channels/:channelID', element: <Channel /> },
         ],
     },
 ]);

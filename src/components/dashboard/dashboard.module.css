@@ -34,7 +34,7 @@
 
 .navbar {
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.26);
+    background-color: var(--bg-heavy-fade);
     display: flex;
     gap: 15vw;
     justify-content: center;

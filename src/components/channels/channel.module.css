@@ -1,0 +1,64 @@
+.header {
+    align-items: center;
+    background-color: var(--bg-heavy-fade);
+    display: flex;
+    gap: 0.5rem;
+    height: var(--header-height);
+    padding-inline: 0.5rem;
+
+    & > h1 {
+        font-size: 1.25rem;
+    }
+}
+
+.button {
+    height: 2rem;
+    width: 2.5rem;
+
+    & > svg {
+        height: 100%;
+        transition: 120ms ease;
+        width: 100%;
+
+        &:hover {
+            color: var(--accent-l);
+        }
+    }
+}
+
+.options {
+    margin-left: auto;
+}
+
+.channel {
+    display: flex;
+    flex: 1;
+    /* flex-direction: column; */
+    min-height: 0px;
+}
+
+.overflow_container {
+    flex: 1;
+    overflow: auto;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    padding: 1rem;
+}
+
+.input {
+    align-items: center;
+    background-color: var(--bg-heavy-fade);
+    display: flex;
+    gap: 1rem;
+    padding-block: 1.5rem;
+    padding-inline: 1rem;
+}
+
+.input > input {
+    flex: 1;
+}

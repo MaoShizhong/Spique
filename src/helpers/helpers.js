@@ -25,3 +25,15 @@ export function sortFriends(friendsList) {
 
     return [...incoming, ...requested, ...accepted];
 }
+
+export function toTimestamp(timestamp, useHour12) {
+    const date = new Date(timestamp);
+
+    const dateOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
+    const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: useHour12 };
+
+    const dateString = date.toLocaleDateString(navigator.language, dateOptions);
+    const timeString = date.toLocaleTimeString(navigator.language, timeOptions);
+
+    return `${dateString} ${timeString}`;
+}
