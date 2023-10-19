@@ -46,6 +46,7 @@ dialog::backdrop {
 button {
     background-color: transparent;
     border: none;
+    padding: 0;
     transition: 120ms ease;
 
     &:hover {

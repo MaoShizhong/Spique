@@ -14,6 +14,7 @@ export function Channel() {
     const { messages, error, loading } = useGetMessages(channelID);
 
     const messagesRef = useRef(null);
+    const inputRef = useRef(null);
 
     const goTo = useNavigate();
 
@@ -27,6 +28,10 @@ export function Channel() {
         }
     }, [messages]);
 
+    async function sendMessage(e) {
+        e.preventDefault();
+    }
+
     return (
         <>
             {loading ? (
@@ -38,25 +43,38 @@ export function Channel() {
                     <main className={styles.channel}>
                         <section className={styles.overflow_container} ref={messagesRef}>
                             <div className={styles.messages}>
-                                {messages.map((message) => (
-                                    <Message
-                                        key={message._id}
-                                        message={message}
-                                        isOwnMessage={user._id === message.user._id}
-                                    />
-                                ))}
+                                {messages.length ? (
+                                    messages.map((message) => (
+                                        <Message
+                                            key={message._id}
+                                            message={message}
+                                            isOwnMessage={user._id === message.user._id}
+                                        />
+                                    ))
+                                ) : (
+                                    <p className={styles.no_messages}>
+                                        No messages! Be the first to say something!
+                                    </p>
+                                )}
                             </div>
                         </section>
                     </main>
 
-                    <form className={styles.input}>
-                        <input
+                    <form className={styles.input} onSubmit={sendMessage}>
+                        <div
                             name="text"
-                            type="text"
                             placeholder="Message"
                             aria-label="enter message"
-                        />
-                        <button>Send</button>
+                            ref={inputRef}
+                            contentEditable
+                        ></div>
+                        <button type="submit" className={styles.button}>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <g>
+                                    <path d="M20 12L4 4L6 12M20 12L4 20L6 12M20 12H6"></path>
+                                </g>
+                            </svg>
+                        </button>
                     </form>
                 </>
             )}

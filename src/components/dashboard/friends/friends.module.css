@@ -1,9 +1,3 @@
-.friends_list {
-    display: flex;
-    flex-direction: column;
-    width: min(95vw, 1000px);
-}
-
 .add {
     background-color: var(--accent-d);
     border-radius: 0.5rem;
@@ -14,6 +8,18 @@
         background-color: var(--accent-l);
         color: var(--fg-contrast);
     }
+}
+
+.overflow_container {
+    flex: 1;
+    overflow: auto;
+    width: 100%;
+}
+
+.friends_list {
+    display: flex;
+    flex-direction: column;
+    width: min(95vw, 1000px);
 }
 
 .friend {

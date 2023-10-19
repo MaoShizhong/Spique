@@ -14,8 +14,10 @@ export function FriendsList({ friends, setFriends }) {
 
     const filterFriends = useCallback(
         (searchBar) => {
+            if (!searchBar.value) return;
+
             const filtered = friends.filter((friend) =>
-                friend.user.username.includes(searchBar.value)
+                friend.user.username.toLowerCase().includes(searchBar.value.toLowerCase())
             );
 
             setFilteredFriends(searchBar.value ? filtered : friends);
@@ -39,29 +41,30 @@ export function FriendsList({ friends, setFriends }) {
                 Find friends
             </button>
 
-            <div className={styles.friends_list}>
-                {filteredFriends.map((friend) => (
-                    <Fragment key={friend.user._id}>
-                        <div className={styles.friend}>
-                            <span>{friend.user.username}</span>
-
-                            {friend.status === 'incoming' ? (
-                                <RespondButtons
-                                    targetUserID={friend.user._id}
-                                    setFriends={setFriends}
-                                />
-                            ) : friend.status === 'requested' ? (
-                                <div>Requested</div>
-                            ) : (
-                                <RemoveButton
-                                    targetUserID={friend.user._id}
-                                    setFriends={setFriends}
-                                />
-                            )}
-                        </div>
-                    </Fragment>
-                ))}
-            </div>
+            <section className={styles.overflow_container}>
+                <div className={styles.friends_list}>
+                    {filteredFriends.map((friend) => (
+                        <Fragment key={friend.user._id}>
+                            <div className={styles.friend}>
+                                <span>{friend.user.username}</span>
+                                {friend.status === 'incoming' ? (
+                                    <RespondButtons
+                                        targetUserID={friend.user._id}
+                                        setFriends={setFriends}
+                                    />
+                                ) : friend.status === 'requested' ? (
+                                    <div>Requested</div>
+                                ) : (
+                                    <RemoveButton
+                                        targetUserID={friend.user._id}
+                                        setFriends={setFriends}
+                                    />
+                                )}
+                            </div>
+                        </Fragment>
+                    ))}
+                </div>
+            </section>
 
             {isAddModalShowing && (
                 <AddFriendsModal

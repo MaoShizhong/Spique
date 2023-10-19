@@ -33,7 +33,6 @@
 .channel {
     display: flex;
     flex: 1;
-    /* flex-direction: column; */
     min-height: 0px;
 }
 
@@ -44,10 +43,19 @@
 
 .messages {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     gap: 0.75rem;
+    height: 100%;
     justify-content: flex-end;
     padding: 1rem;
+
+    & > .no_messages {
+        color: var(--fg-fade);
+        font-size: 0.8rem;
+        font-style: italic;
+        margin-top: auto;
+        text-align: center;
+    }
 }
 
 .input {
@@ -57,8 +65,14 @@
     gap: 1rem;
     padding-block: 1.5rem;
     padding-inline: 1rem;
+    width: 100%;
 }
 
-.input > input {
+.input > div {
+    background-color: var(--bg-fade);
+    border: 1px solid var(--fg-fade);
+    border-radius: 0.35rem;
     flex: 1;
+    padding: 0.5rem;
+    word-break: break-all;
 }

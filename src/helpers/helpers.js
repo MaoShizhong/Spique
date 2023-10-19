@@ -26,6 +26,15 @@ export function sortFriends(friendsList) {
     return [...incoming, ...requested, ...accepted];
 }
 
+export function sortChannels(channelList) {
+    const hasMessages = channelList
+        .filter((channel) => channel.latestMessage)
+        .sort(latestMessageFirst);
+    const empty = channelList.filter((channel) => !channel.latestMessage);
+
+    return [...hasMessages, ...empty];
+}
+
 export function toTimestamp(timestamp, useHour12) {
     const date = new Date(timestamp);
 
@@ -36,4 +45,13 @@ export function toTimestamp(timestamp, useHour12) {
     const timeString = date.toLocaleTimeString(navigator.language, timeOptions);
 
     return `${dateString} ${timeString}`;
+}
+
+function latestMessageFirst(msgA, msgB) {
+    const [dateA, dateB] = [
+        new Date(msgA.latestMessage.timestamp).getTime(),
+        new Date(msgB.latestMessage.timestamp).getTime(),
+    ];
+
+    return dateB - dateA;
 }

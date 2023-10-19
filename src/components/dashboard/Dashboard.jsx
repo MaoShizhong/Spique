@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../App';
-import { fetchData, sortFriends } from '../../helpers/helpers';
+import { fetchData, sortChannels, sortFriends } from '../../helpers/helpers';
 import { Loading } from '../loading/Loading';
 import { Github } from './Github';
 import { Navbar } from './Navbar';
@@ -30,7 +30,7 @@ export function Dashboard() {
 
             if (usersChannels.ok) {
                 const channels = await usersChannels.json();
-                setChannels(channels);
+                setChannels(sortChannels(channels));
             }
 
             if (usersFriends.ok) {
@@ -57,7 +57,7 @@ export function Dashboard() {
 
                     <main className={styles.content}>
                         {page === 'channels' ? (
-                            <ChannelList channels={channels} />
+                            <ChannelList channels={channels} friends={friends} />
                         ) : page === 'friends' ? (
                             <FriendsList friends={friends} setFriends={setFriends} />
                         ) : (
