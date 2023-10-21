@@ -1,7 +1,7 @@
 import { forwardRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchData } from '../../../helpers/helpers';
-import styles from './channel_list.module.css';
+import styles from './channel_list_modal.module.css';
 
 export const CreateChannelModal = forwardRef(function CreateChannelModal(
     { friends, setIsCreateModalShowing },

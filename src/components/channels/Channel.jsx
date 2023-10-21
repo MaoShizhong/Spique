@@ -5,17 +5,28 @@ import { fetchData } from '../../helpers/helpers';
 import { Loading } from '../loading/Loading';
 import { ChannelHeader } from './ChannelHeader';
 import { Message } from './Message';
+import { NewMessageBox } from './NewMessageBox';
 import styles from './channel.module.css';
 
 export function Channel() {
     const { user } = useContext(UserContext);
     const { channelID } = useParams();
     const { channelName } = useLocation().state;
-    const { messages, error, loading } = useGetMessages(channelID);
+    const {
+        messages,
+        setMessages,
+        hasMoreMessages,
+        setHasMoreMessages,
+        latestMessageAction,
+        setLatestMessageAction,
+        error,
+        loading,
+    } = useGetMessages(channelID);
+
+    const [pagesShown, setPagesShown] = useState(1);
+    const [messagesHeight, setMessagesHeight] = useState(0);
 
     const messagesRef = useRef(null);
-    const inputRef = useRef(null);
-
     const goTo = useNavigate();
 
     useEffect(() => {
@@ -23,13 +34,36 @@ export function Channel() {
     }, [error, goTo]);
 
     useEffect(() => {
-        if (messagesRef.current) {
-            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-        }
-    }, [messages]);
+        if (!messagesRef.current) return;
 
-    async function sendMessage(e) {
-        e.preventDefault();
+        if (latestMessageAction === 'add') {
+            messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+        } else if (latestMessageAction === 'scroll') {
+            console.log(messagesRef.current.scrollHeight, messagesHeight);
+            messagesRef.current.scrollTop = messagesRef.current.scrollHeight - messagesHeight;
+        }
+
+        setMessagesHeight(messagesRef.current.scrollHeight);
+        setLatestMessageAction(null);
+    }, [messages.length, latestMessageAction, messagesHeight, setLatestMessageAction]);
+
+    async function loadMoreMessages() {
+        try {
+            const nextPage = pagesShown + 1;
+
+            const res = await fetchData(`/channels/${channelID}/messages?page=${nextPage}`);
+
+            if (res.ok) {
+                const data = await res.json();
+
+                setLatestMessageAction('scroll');
+                setMessages((prev) => [...prev, ...data.messages]);
+                setHasMoreMessages(data.hasMoreMessages);
+                setPagesShown(nextPage);
+            }
+        } catch (error) {
+            goTo('/error');
+        }
     }
 
     return (
@@ -40,42 +74,43 @@ export function Channel() {
                 <>
                     <ChannelHeader channelName={channelName} />
 
-                    <main className={styles.channel}>
-                        <section className={styles.overflow_container} ref={messagesRef}>
-                            <div className={styles.messages}>
-                                {messages.length ? (
-                                    messages.map((message) => (
+                    <main
+                        className={styles.overflow_container}
+                        ref={messagesRef}
+                        onScroll={(e) => {
+                            if (e.target.scrollTop === 0 && hasMoreMessages) {
+                                loadMoreMessages();
+                            }
+                        }}
+                    >
+                        <div className={styles.messages}>
+                            {messages.length ? (
+                                <>
+                                    {messages.map((message) => (
                                         <Message
                                             key={message._id}
                                             message={message}
                                             isOwnMessage={user._id === message.user._id}
                                         />
-                                    ))
-                                ) : (
-                                    <p className={styles.no_messages}>
-                                        No messages! Be the first to say something!
-                                    </p>
-                                )}
-                            </div>
-                        </section>
+                                    ))}
+
+                                    {messages.length && !hasMoreMessages && (
+                                        <p className={styles.no_messages}>Start of conversation</p>
+                                    )}
+                                </>
+                            ) : (
+                                <p className={styles.no_messages}>
+                                    No messages! Be the first to say something!
+                                </p>
+                            )}
+                        </div>
                     </main>
 
-                    <form className={styles.input} onSubmit={sendMessage}>
-                        <div
-                            name="text"
-                            placeholder="Message"
-                            aria-label="enter message"
-                            ref={inputRef}
-                            contentEditable
-                        ></div>
-                        <button type="submit" className={styles.button}>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <g>
-                                    <path d="M20 12L4 4L6 12M20 12L4 20L6 12M20 12H6"></path>
-                                </g>
-                            </svg>
-                        </button>
-                    </form>
+                    <NewMessageBox
+                        channelID={channelID}
+                        setMessages={setMessages}
+                        setLatestMessageAction={setLatestMessageAction}
+                    />
                 </>
             )}
         </>
@@ -84,6 +119,8 @@ export function Channel() {
 
 function useGetMessages(channelID) {
     const [messages, setMessages] = useState([]);
+    const [hasMoreMessages, setHasMoreMessages] = useState(false);
+    const [latestMessageAction, setLatestMessageAction] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -93,8 +130,11 @@ function useGetMessages(channelID) {
                 const res = await fetchData(`/channels/${channelID}/messages`);
 
                 if (res.ok) {
-                    const messagesFirstPage = await res.json();
-                    setMessages(messagesFirstPage);
+                    const data = await res.json();
+
+                    setMessages(data.messages);
+                    setHasMoreMessages(data.hasMoreMessages);
+                    setLatestMessageAction('add');
                 }
             } catch (error) {
                 setError(error);
@@ -106,5 +146,14 @@ function useGetMessages(channelID) {
         fetchChannelMessages();
     }, [channelID]);
 
-    return { messages, error, loading };
+    return {
+        messages,
+        setMessages,
+        hasMoreMessages,
+        setHasMoreMessages,
+        latestMessageAction,
+        setLatestMessageAction,
+        error,
+        loading,
+    };
 }

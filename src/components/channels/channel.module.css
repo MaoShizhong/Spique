@@ -30,24 +30,19 @@
     margin-left: auto;
 }
 
-.channel {
-    display: flex;
-    flex: 1;
-    min-height: 0px;
-}
-
 .overflow_container {
-    flex: 1;
+    height: 100%;
     overflow: auto;
+    overflow-anchor: auto;
 }
 
 .messages {
     display: flex;
     flex-direction: column-reverse;
     gap: 0.75rem;
-    height: 100%;
     justify-content: flex-end;
-    padding: 1rem;
+    margin: 1rem;
+    overflow-anchor: auto;
 
     & > .no_messages {
         color: var(--fg-fade);
@@ -58,6 +53,12 @@
     }
 }
 
+.show_more {
+    color: var(--fg-fade);
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
 .input {
     align-items: center;
     background-color: var(--bg-heavy-fade);
@@ -65,14 +66,27 @@
     gap: 1rem;
     padding-block: 1.5rem;
     padding-inline: 1rem;
+    position: relative;
     width: 100%;
 }
 
-.input > div {
+.input > textarea {
     background-color: var(--bg-fade);
     border: 1px solid var(--fg-fade);
     border-radius: 0.35rem;
+    color: var(--fg);
     flex: 1;
+    max-height: 7.4em; /* 6 rows */
     padding: 0.5rem;
+    resize: none;
     word-break: break-all;
+}
+
+.error {
+    color: var(--error);
+    font-size: 0.85em;
+    left: 1rem;
+    margin-bottom: -0.5rem;
+    position: absolute;
+    top: -0.7rem;
 }

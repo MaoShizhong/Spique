@@ -15,6 +15,11 @@ export function ChannelPreview({ channel, username }) {
                     {latestMsg && <span>{toTimestamp(latestMsg.timestamp)}</span>}
                 </div>
 
+                <div className={styles.participants}>
+                    {channel.participants.length}{' '}
+                    {channel.participants.length > 1 ? 'participants' : 'participant'}
+                </div>
+
                 {latestMsg ? (
                     <div className={styles.message_preview}>
                         <span>{author}:</span> {latestMsg.text}

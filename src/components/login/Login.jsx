@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
+import { fetchData } from '../../helpers/helpers';
 import { Github } from '../dashboard/Github';
 import { Loading } from '../loading/Loading';
 import { LoginForm } from './LoginForm';
@@ -28,11 +29,7 @@ export function Login() {
         const endpoint = formType === 'login' ? '/auth/sessions' : '/auth/users';
 
         try {
-            const res = await fetch(`http://localhost:5000${endpoint}`, {
-                credentials: 'include',
-                method: 'POST',
-                body: new URLSearchParams(form),
-            });
+            const res = await fetchData(endpoint, 'POST', form);
 
             if (res.ok) {
                 const user = await res.json();

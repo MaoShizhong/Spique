@@ -22,7 +22,8 @@
 body,
 button,
 input,
-dialog {
+dialog,
+textarea {
     color: var(--fg);
     font-family: 'Jost', Helvetica, sans-serif, system-ui;
     font-size: 95%;
