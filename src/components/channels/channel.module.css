@@ -1,35 +1,3 @@
-.header {
-    align-items: center;
-    background-color: var(--bg-heavy-fade);
-    display: flex;
-    gap: 0.5rem;
-    height: var(--header-height);
-    padding-inline: 0.5rem;
-
-    & > h1 {
-        font-size: 1.25rem;
-    }
-}
-
-.button {
-    height: 2rem;
-    width: 2.5rem;
-
-    & > svg {
-        height: 100%;
-        transition: 120ms ease;
-        width: 100%;
-
-        &:hover {
-            color: var(--accent-l);
-        }
-    }
-}
-
-.options {
-    margin-left: auto;
-}
-
 .overflow_container {
     height: 100%;
     overflow: auto;

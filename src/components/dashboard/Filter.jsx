@@ -9,7 +9,7 @@ export const Filter = forwardRef(function Filter({ callback }, inputRef) {
                 type="text"
                 aria-label="Filter"
                 ref={inputRef}
-                onChange={(e) => callback(e.target)}
+                onInput={(e) => callback(e.target)}
             />
         </div>
     );

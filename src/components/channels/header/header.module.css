@@ -1,0 +1,84 @@
+:root {
+    --header-height: 3rem;
+}
+
+.header {
+    align-items: center;
+    background-color: var(--bg-heavy-fade);
+    display: flex;
+    gap: 0.5rem;
+    height: var(--header-height);
+    padding-inline: 0.5rem;
+    position: relative;
+    width: 100%;
+
+    & > h1 {
+        font-size: 1.25rem;
+    }
+}
+
+.button {
+    height: 2rem;
+    width: 2.5rem;
+
+    & > svg {
+        height: 100%;
+        transition: 120ms ease;
+        width: 100%;
+
+        &:hover {
+            color: var(--accent-l);
+        }
+    }
+}
+
+.options {
+    margin-left: auto;
+}
+
+.menu {
+    background-color: var(--bg-m);
+    margin: 0;
+    padding-inline: 1rem;
+    position: fixed;
+    right: 0;
+    top: var(--header-height);
+    width: min(45vw, 180px);
+}
+
+.menu_options {
+    list-style: none;
+    margin: 0;
+    text-align: right;
+
+    & > li {
+        margin-block: 1.5rem;
+        user-select: none;
+
+        &:hover {
+            color: var(--accent-l);
+            cursor: pointer;
+        }
+    }
+}
+
+.friend {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.new_name {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+
+    & > input {
+        flex: 1;
+    }
+}
+
+.confirm {
+    color: var(--accent-d);
+    font-weight: bold;
+}

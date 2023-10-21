@@ -3,7 +3,6 @@ import App from './App';
 import { Channel } from './components/channels/Channel';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { ErrorPage } from './components/error/ErrorPage';
-import { Login } from './components/login/Login';
 
 export const router = createBrowserRouter([
     {
@@ -12,7 +11,7 @@ export const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { path: '/error', element: <ErrorPage /> },
-            { path: '/login', element: <Login /> },
+            { path: '/', element: <Dashboard /> },
             { path: '/dashboard', element: <Dashboard /> },
             { path: '/channels/:channelID', element: <Channel /> },
         ],

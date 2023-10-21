@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { fetchData } from '../../helpers/helpers';
@@ -13,9 +13,13 @@ export function Login() {
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState(null);
 
-    const { setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const goTo = useNavigate();
+
+    useEffect(() => {
+        if (user) goTo('/dashboard');
+    }, [user, goTo]);
 
     async function submitForm(e) {
         e.preventDefault();

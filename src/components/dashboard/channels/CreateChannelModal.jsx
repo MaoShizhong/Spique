@@ -1,6 +1,7 @@
 import { forwardRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchData } from '../../../helpers/helpers';
+import { closeModal, fetchData } from '../../../helpers/helpers';
+import modalStyles from '../../../modals.module.css';
 import styles from './channel_list_modal.module.css';
 
 export const CreateChannelModal = forwardRef(function CreateChannelModal(
@@ -10,14 +11,6 @@ export const CreateChannelModal = forwardRef(function CreateChannelModal(
     const [participants, setParticipants] = useState([]);
 
     const goTo = useNavigate();
-
-    function closeModal(e) {
-        // Allows closing upon clicking outside modal (or dedicated close button)
-        if (e.target.tagName === 'DIALOG' || e.target.id === 'close') {
-            modalRef.current.close();
-            setIsCreateModalShowing(false);
-        }
-    }
 
     function addAsParticipant(friend) {
         setParticipants((prev) => [...prev, friend.user]);
@@ -45,12 +38,16 @@ export const CreateChannelModal = forwardRef(function CreateChannelModal(
     }
 
     return (
-        <dialog onClick={closeModal} ref={modalRef}>
-            <button id="close" className={styles.close} onClick={closeModal}>
+        <dialog onClick={(e) => closeModal(e, setIsCreateModalShowing)} ref={modalRef}>
+            <button
+                id="close"
+                className={modalStyles.close}
+                onClick={(e) => closeModal(e, setIsCreateModalShowing)}
+            >
                 {'\u2A2F'}
             </button>
 
-            <div className={styles.modal}>
+            <div className={modalStyles.modal}>
                 <div className={styles.participants}>
                     {participants.map((participant) => (
                         <button
@@ -70,7 +67,10 @@ export const CreateChannelModal = forwardRef(function CreateChannelModal(
                                 <div key={friend.user._id}>
                                     <span>{friend.user.username}</span>
                                     {!participants.find((user) => user._id === friend.user._id) && (
-                                        <button onClick={() => addAsParticipant(friend)}>
+                                        <button
+                                            onClick={() => addAsParticipant(friend)}
+                                            className={modalStyles.button}
+                                        >
                                             Add
                                         </button>
                                     )}
@@ -81,7 +81,7 @@ export const CreateChannelModal = forwardRef(function CreateChannelModal(
                 </div>
 
                 {!participants.length && (
-                    <p className={styles.error}>Please add at least one other user.</p>
+                    <p className={modalStyles.error}>Please add at least one other user.</p>
                 )}
 
                 <button

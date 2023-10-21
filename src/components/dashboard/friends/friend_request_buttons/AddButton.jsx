@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from '../../../../App';
 import { fetchData, sortFriends } from '../../../../helpers/helpers';
-import styles from '../friends.module.css';
+import modalStyles from '../../../../modals.module.css';
 
 export function AddButton({ targetUserID, setFriends }) {
     const { user } = useContext(UserContext);
@@ -21,7 +21,7 @@ export function AddButton({ targetUserID, setFriends }) {
         }
     }
     return (
-        <button className={styles.send_request} onClick={sendFriendRequest}>
+        <button className={modalStyles.button} onClick={sendFriendRequest}>
             Add friend
         </button>
     );

@@ -55,3 +55,11 @@ function latestMessageFirst(msgA, msgB) {
 
     return dateB - dateA;
 }
+
+export function closeModal(e, setIsModalShowing) {
+    // Allows closing upon clicking outside modal (or dedicated close button)
+    if (e.target.tagName === 'DIALOG' || e.target.id === 'close') {
+        e.currentTarget.closest('dialog').close();
+        setIsModalShowing(false);
+    }
+}

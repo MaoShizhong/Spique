@@ -3,10 +3,10 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { fetchData } from '../../helpers/helpers';
 import { Loading } from '../loading/Loading';
-import { ChannelHeader } from './ChannelHeader';
 import { Message } from './Message';
 import { NewMessageBox } from './NewMessageBox';
 import styles from './channel.module.css';
+import { ChannelHeader } from './header/ChannelHeader';
 
 export function Channel() {
     const { user } = useContext(UserContext);
@@ -23,6 +23,7 @@ export function Channel() {
         loading,
     } = useGetMessages(channelID);
 
+    const [name, setName] = useState(channelName);
     const [pagesShown, setPagesShown] = useState(1);
     const [messagesHeight, setMessagesHeight] = useState(0);
 
@@ -72,7 +73,7 @@ export function Channel() {
                 <Loading text="" />
             ) : (
                 <>
-                    <ChannelHeader channelName={channelName} />
+                    <ChannelHeader channelName={name} setChannelName={setName} />
 
                     <main
                         className={styles.overflow_container}

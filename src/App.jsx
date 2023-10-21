@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { Login } from './components/login/Login';
 import { fetchData } from './helpers/helpers';
 
 export const UserContext = createContext({
@@ -13,19 +14,22 @@ export default function App() {
     const goTo = useNavigate();
 
     useEffect(() => {
-        (async () => {
-            const res = await fetchData('/auth/sessions', 'GET');
+        async function autoLogin() {
+            try {
+                const res = await fetchData('/auth/sessions', 'GET');
 
-            if (res.ok) {
-                setUser(await res.json());
+                if (res.ok) {
+                    setUser(await res.json());
+                } else {
+                    goTo('/');
+                }
+            } catch (error) {
+                goTo('/error');
             }
-        })();
-    }, []);
+        }
 
-    useEffect(() => {
-        if (user) goTo('/dashboard');
-        else goTo('/login');
-    }, [user, goTo]);
+        autoLogin();
+    }, [goTo]);
 
     return (
         <UserContext.Provider
@@ -34,7 +38,7 @@ export default function App() {
                 setUser: setUser,
             }}
         >
-            <Outlet />
+            {user ? <Outlet /> : <Login />}
         </UserContext.Provider>
     );
 }

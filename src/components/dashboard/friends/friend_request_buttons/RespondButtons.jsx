@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from '../../../../App';
 import { fetchData, sortFriends } from '../../../../helpers/helpers';
+import modalStyles from '../../../../modals.module.css';
 import styles from '../friends.module.css';
 
 export function RespondButtons({ targetUserID, setFriends }) {
@@ -25,12 +26,14 @@ export function RespondButtons({ targetUserID, setFriends }) {
             Accept?
             <button
                 onClick={() => handleFriendRequest('accept')}
+                className={modalStyles.button}
                 aria-label="accept friend request"
             >
                 {'\u2713'}
             </button>
             <button
                 onClick={() => handleFriendRequest('reject')}
+                className={modalStyles.button}
                 aria-label="reject friend request"
             >
                 {'\u2A2F'}

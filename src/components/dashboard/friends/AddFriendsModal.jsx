@@ -1,5 +1,6 @@
 import { forwardRef, useCallback, useEffect, useState } from 'react';
-import { fetchData } from '../../../helpers/helpers';
+import { closeModal, fetchData } from '../../../helpers/helpers';
+import modalStyles from '../../../modals.module.css';
 import { AddButton } from './friend_request_buttons/AddButton';
 import { RemoveButton } from './friend_request_buttons/RemoveButton';
 import { RespondButtons } from './friend_request_buttons/RespondButtons';
@@ -42,21 +43,17 @@ export const AddFriendsModal = forwardRef(function AddFriendsModal(
         else return friend.status;
     }
 
-    function closeModal(e) {
-        // Allows closing upon clicking outside modal (or dedicated close button)
-        if (e.target.tagName === 'DIALOG' || e.target.id === 'close') {
-            modalRef.current.close();
-            setIsAddModalShowing(false);
-        }
-    }
-
     return (
-        <dialog onClick={closeModal} ref={modalRef}>
-            <button id="close" className={styles.close} onClick={closeModal}>
+        <dialog onClick={(e) => closeModal(e, setIsAddModalShowing)} ref={modalRef}>
+            <button
+                id="close"
+                className={modalStyles.close}
+                onClick={(e) => closeModal(e, setIsAddModalShowing)}
+            >
                 {'\u2A2F'}
             </button>
 
-            <div className={styles.modal}>
+            <div className={modalStyles.modal}>
                 <input
                     type="text"
                     placeholder="Search users"
