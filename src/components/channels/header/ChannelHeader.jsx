@@ -26,9 +26,10 @@ export function ChannelHeader({ channelName, setChannelName }) {
 
             <h1>{channelName}</h1>
 
-            <button
+            <div
                 className={`${styles.button} ${styles.options}`}
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                onMouseEnter={() => setIsMenuOpen(true)}
+                onMouseLeave={() => setIsMenuOpen(false)}
             >
                 {isMenuOpen ? (
                     <svg width="64px" height="64px" viewBox="0 0 24 24" stroke="currentColor">
@@ -43,11 +44,15 @@ export function ChannelHeader({ channelName, setChannelName }) {
                         </g>
                     </svg>
                 )}
-            </button>
 
-            {isMenuOpen && (
-                <ChannelMenu channelName={channelName} setChannelName={setChannelName} />
-            )}
+                {isMenuOpen && (
+                    <ChannelMenu
+                        channelName={channelName}
+                        setChannelName={setChannelName}
+                        closeMenu={() => setIsMenuOpen(false)}
+                    />
+                )}
+            </div>
         </header>
     );
 }

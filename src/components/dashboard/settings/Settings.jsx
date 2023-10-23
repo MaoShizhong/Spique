@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../App';
 import { fetchData } from '../../../helpers/helpers';
+import { ConfirmButton } from '../../confirm/ConfirmButton';
 
 export function Settings() {
     const { setUser } = useContext(UserContext);
@@ -18,7 +19,7 @@ export function Settings() {
 
     return (
         <div>
-            <button onClick={logout}>Logout</button>
+            <ConfirmButton initialText="Logout" callback={logout} buttonAlignment="center" />
         </div>
     );
 }

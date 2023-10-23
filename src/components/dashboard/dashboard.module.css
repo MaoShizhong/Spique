@@ -3,9 +3,10 @@
     background-color: rgba(0, 0, 0, 0.26);
     display: flex;
     justify-content: center;
+    word-break: break-all;
 
     & > h1 {
-        font-size: 1.4rem;
+        font-size: 1.1rem;
         margin: 0.5rem;
     }
 }

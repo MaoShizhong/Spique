@@ -7,7 +7,7 @@ import { Filter } from '../../dashboard/Filter';
 import styles from './header.module.css';
 
 export const AddParticipantModal = forwardRef(function AddParticipantModal(
-    { setIsModalOpen, setChannelName },
+    { setIsModalOpen, setChannelName, closeMenu },
     addModalRef
 ) {
     const { user } = useContext(UserContext);
@@ -73,7 +73,7 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
     }
 
     return (
-        <dialog onClick={(e) => closeModal(e, setIsModalOpen)} ref={addModalRef}>
+        <dialog onClick={(e) => closeModal(e, setIsModalOpen, closeMenu)} ref={addModalRef}>
             <button
                 id="close"
                 className={modalStyles.close}

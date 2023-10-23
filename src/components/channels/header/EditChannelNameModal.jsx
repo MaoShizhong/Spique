@@ -5,7 +5,7 @@ import modalStyles from '../../../modals.module.css';
 import styles from './header.module.css';
 
 export const EditChannelNameModal = forwardRef(function EditChannelNameModal(
-    { setIsModalOpen, channelName, setChannelName },
+    { setIsModalOpen, channelName, setChannelName, closeMenu },
     nameModalRef
 ) {
     const { channelID } = useParams();
@@ -35,7 +35,7 @@ export const EditChannelNameModal = forwardRef(function EditChannelNameModal(
     }
 
     return (
-        <dialog onClick={(e) => closeModal(e, setIsModalOpen)} ref={nameModalRef}>
+        <dialog onClick={(e) => closeModal(e, setIsModalOpen, closeMenu)} ref={nameModalRef}>
             <button
                 id="close"
                 className={modalStyles.close}

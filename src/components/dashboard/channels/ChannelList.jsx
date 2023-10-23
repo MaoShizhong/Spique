@@ -30,14 +30,14 @@ export function ChannelList({ channels, friends }) {
         <>
             <Filter callback={filterChannels} ref={inputRef} />
 
-            <button className={styles.add} onClick={() => setIsCreateModalShowing(true)}>
+            <button className="bg-accented-lg" onClick={() => setIsCreateModalShowing(true)}>
                 Create new channel
             </button>
 
             <section className={styles.overflow_container}>
                 <div className={styles.list}>
                     {!filteredChannels.length ? (
-                        <p>No channels</p>
+                        <p className={styles.no_channels}>No channels found</p>
                     ) : (
                         filteredChannels.map((channel) => (
                             <ChannelPreview

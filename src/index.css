@@ -55,6 +55,25 @@ button {
     }
 }
 
+.bg-accented-lg,
+.bg-accented-sm {
+    background-color: var(--accent-d);
+    border-radius: 0.5rem;
+
+    &:hover {
+        background-color: var(--accent-l);
+        color: var(--fg-contrast);
+    }
+}
+
+.bg-accented-lg {
+    padding: 0.5rem 1rem;
+}
+
+.bg-accented-sm {
+    padding-inline: 0.5rem;
+}
+
 input {
     background-color: var(--bg-fade);
     border: 1px solid var(--fg-fade);

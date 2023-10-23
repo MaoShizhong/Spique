@@ -37,32 +37,39 @@ export function FriendsList({ friends, setFriends }) {
         <>
             <Filter callback={filterFriends} ref={inputRef} />
 
-            <button className={styles.add} onClick={() => setIsAddModalShowing(true)}>
+            <button className="bg-accented-lg" onClick={() => setIsAddModalShowing(true)}>
                 Find friends
             </button>
 
             <section className={styles.overflow_container}>
                 <div className={styles.friends_list}>
-                    {filteredFriends.map((friend) => (
-                        <Fragment key={friend.user._id}>
-                            <div className={styles.friend}>
-                                <span>{friend.user.username}</span>
-                                {friend.status === 'incoming' ? (
-                                    <RespondButtons
-                                        targetUserID={friend.user._id}
-                                        setFriends={setFriends}
-                                    />
-                                ) : friend.status === 'requested' ? (
-                                    <div>Requested</div>
-                                ) : (
-                                    <RemoveButton
-                                        targetUserID={friend.user._id}
-                                        setFriends={setFriends}
-                                    />
-                                )}
-                            </div>
-                        </Fragment>
-                    ))}
+                    {!filteredFriends.length ? (
+                        <div className={styles.no_friends}>
+                            <p>No friends found</p>
+                            <p>Click the button above to start connecting</p>
+                        </div>
+                    ) : (
+                        filteredFriends.map((friend) => (
+                            <Fragment key={friend.user._id}>
+                                <div className={styles.friend}>
+                                    <span>{friend.user.username}</span>
+                                    {friend.status === 'incoming' ? (
+                                        <RespondButtons
+                                            targetUserID={friend.user._id}
+                                            setFriends={setFriends}
+                                        />
+                                    ) : friend.status === 'requested' ? (
+                                        <div>Requested</div>
+                                    ) : (
+                                        <RemoveButton
+                                            targetUserID={friend.user._id}
+                                            setFriends={setFriends}
+                                        />
+                                    )}
+                                </div>
+                            </Fragment>
+                        ))
+                    )}
                 </div>
             </section>
 

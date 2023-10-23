@@ -54,7 +54,7 @@ export function NewMessageBox({ channelID, setMessages, setLatestMessageAction }
                 <p className={styles.error}>Max. 2000 characters</p>
             )}
 
-            <button type="submit" className={styles.button}>
+            <button type="submit" className={styles.send} aria-label="send message">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <g>
                         <path d="M20 12L4 4L6 12M20 12L4 20L6 12M20 12H6"></path>

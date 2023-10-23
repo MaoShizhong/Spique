@@ -50,6 +50,10 @@
     word-break: break-all;
 }
 
+.send {
+    width: 2rem;
+}
+
 .error {
     color: var(--error);
     font-size: 0.85em;

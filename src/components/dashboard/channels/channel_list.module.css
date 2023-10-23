@@ -24,6 +24,10 @@
     width: 100%;
 }
 
+.no_channels {
+    text-align: center;
+}
+
 .list {
     display: flex;
     flex-direction: column;
@@ -35,7 +39,12 @@
     transition: 120ms ease;
 
     & .name {
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
         font-weight: bold;
+        -webkit-line-clamp: 2;
+        max-width: 65%;
+        overflow: hidden;
     }
 
     &:hover {

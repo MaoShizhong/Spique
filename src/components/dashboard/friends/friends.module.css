@@ -1,24 +1,17 @@
-.add {
-    background-color: var(--accent-d);
-    border-radius: 0.5rem;
-    margin-block: 0.5rem;
-    padding: 0.5rem;
-
-    &:hover {
-        background-color: var(--accent-l);
-        color: var(--fg-contrast);
-    }
-}
-
 .overflow_container {
     flex: 1;
     overflow: auto;
     width: 100%;
 }
 
+.no_friends {
+    text-align: center;
+}
+
 .friends_list {
     display: flex;
     flex-direction: column;
+    margin-inline: auto;
     width: min(95vw, 1000px);
 }
 
