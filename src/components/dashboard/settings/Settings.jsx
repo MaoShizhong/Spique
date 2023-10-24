@@ -7,7 +7,7 @@ import { ChangeableDetail } from './ChangeableDetail';
 import styles from './settings.module.css';
 
 export function Settings() {
-    const { user, setUser } = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
 
     const goTo = useNavigate();
 
@@ -28,9 +28,9 @@ export function Settings() {
 
     return (
         <div className={styles.settings}>
-            <ChangeableDetail user={user} userDetail="username" />
+            <ChangeableDetail userDetail="username" />
 
-            <ChangeableDetail user={user} userDetail="email" />
+            <ChangeableDetail userDetail="email" />
 
             <ConfirmButton
                 initialText="Request password reset"

@@ -32,3 +32,8 @@
     display: flex;
     gap: 1rem;
 }
+
+.error {
+    color: var(--error);
+    font-size: 0.8rem;
+}
