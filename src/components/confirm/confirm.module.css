@@ -1,0 +1,15 @@
+.original:hover {
+    color: var(--accent-l);
+}
+
+.buttons {
+    margin-block: 0.5rem;
+
+    & > button:first-child {
+        margin-right: 0.5rem;
+    }
+
+    & > button:last-child {
+        margin-left: 0.5rem;
+    }
+}

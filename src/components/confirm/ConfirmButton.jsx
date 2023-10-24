@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './confirm.module.css';
 
 export function ConfirmButton({ initialText, callback, buttonAlignment }) {
     const [isShowingConfirm, setIsShowingConfirm] = useState(false);
@@ -6,20 +7,21 @@ export function ConfirmButton({ initialText, callback, buttonAlignment }) {
     return (
         <>
             {isShowingConfirm ? (
-                <div>
+                <div style={{ textAlign: buttonAlignment }}>
                     <div>Confirm {initialText.toLowerCase()}?</div>
 
-                    <div style={{ textAlign: buttonAlignment, marginBlock: '0.5rem' }}>
+                    <div className={styles.buttons}>
                         <button
                             className="bg-accented-sm"
-                            style={{ marginRight: '0.5rem' }}
-                            onClick={callback}
+                            onClick={() => {
+                                callback();
+                                setIsShowingConfirm(false);
+                            }}
                         >
                             Yes
                         </button>
                         <button
                             className="bg-accented-sm"
-                            style={{ marginLeft: '0.5rem' }}
                             onClick={() => setIsShowingConfirm(false)}
                         >
                             No
@@ -27,7 +29,9 @@ export function ConfirmButton({ initialText, callback, buttonAlignment }) {
                     </div>
                 </div>
             ) : (
-                <button onClick={() => setIsShowingConfirm(true)}>{initialText}</button>
+                <button className={styles.original} onClick={() => setIsShowingConfirm(true)}>
+                    {initialText}
+                </button>
             )}
         </>
     );

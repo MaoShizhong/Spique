@@ -61,6 +61,7 @@ export function closeModal(e, setIsModalShowing, closeMenu) {
     if (e.target.tagName === 'DIALOG' || e.target.id === 'close') {
         e.currentTarget.closest('dialog').close();
         setIsModalShowing(false);
-        closeMenu();
     }
+
+    if (closeMenu) closeMenu();
 }
