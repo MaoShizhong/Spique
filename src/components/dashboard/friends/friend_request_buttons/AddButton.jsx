@@ -13,7 +13,6 @@ export function AddButton({ targetUserID, setFriends }) {
 
         if (res.ok) {
             const updatedFriendsList = await res.json();
-            console.log(updatedFriendsList);
             setFriends(sortFriends(updatedFriendsList));
         } else {
             alert('Something went wrong, please try again later.');

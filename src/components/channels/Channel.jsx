@@ -40,7 +40,6 @@ export function Channel() {
         if (latestMessageAction === 'add') {
             messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
         } else if (latestMessageAction === 'scroll') {
-            console.log(messagesRef.current.scrollHeight, messagesHeight);
             messagesRef.current.scrollTop = messagesRef.current.scrollHeight - messagesHeight;
         }
 

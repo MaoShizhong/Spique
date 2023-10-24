@@ -35,8 +35,6 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
                     const friends = await friendsRes.json();
                     const { participants } = await channelRes.json();
 
-                    console.log(participants);
-
                     const nonChannelFriends = friends.filter((friend) => {
                         if (friend.status === 'accepted') {
                             return !participants.find(
@@ -84,7 +82,6 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
                 friend.user.username.toLowerCase().includes(input.value.toLowerCase())
             )
         );
-        console.log(filteredFriends);
     }
 
     return (
