@@ -45,14 +45,6 @@ export const AddFriendsModal = forwardRef(function AddFriendsModal(
 
     return (
         <dialog onClick={(e) => closeModal(e, setIsAddModalShowing)} ref={modalRef}>
-            <button
-                id="close"
-                className={modalStyles.close}
-                onClick={(e) => closeModal(e, setIsAddModalShowing)}
-            >
-                {'\u2A2F'}
-            </button>
-
             <div className={modalStyles.modal}>
                 <input
                     type="text"
@@ -89,6 +81,14 @@ export const AddFriendsModal = forwardRef(function AddFriendsModal(
                     </div>
                 )}
             </div>
+
+            <button
+                id="close"
+                className={modalStyles.close}
+                onClick={(e) => closeModal(e, setIsAddModalShowing)}
+            >
+                {'\u2A2F'}
+            </button>
         </dialog>
     );
 });

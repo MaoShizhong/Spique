@@ -4,6 +4,7 @@ import { UserContext } from '../../../App';
 import { closeModal, fetchData } from '../../../helpers/helpers';
 import modalStyles from '../../../modals.module.css';
 import { Filter } from '../../dashboard/Filter';
+import { Loading } from '../../loading/Loading';
 import styles from './header.module.css';
 
 export const AddParticipantModal = forwardRef(function AddParticipantModal(
@@ -16,8 +17,9 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
 
     const [participants, setParticipants] = useState([]);
     const [friendGetError, setFriendGetError] = useState(false);
-    const [friends, setFriends] = useState([]);
+    const [friendsNotInChannel, setFriendsNotInChannel] = useState(null);
     const [filteredFriends, setFilteredFriends] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function getFriends() {
@@ -31,15 +33,27 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
                     setFriendGetError(true);
                 } else {
                     const friends = await friendsRes.json();
-                    setFriends(friends);
-                    setFilteredFriends(friends);
-
                     const { participants } = await channelRes.json();
+
+                    console.log(participants);
+
+                    const nonChannelFriends = friends.filter((friend) => {
+                        if (friend.status === 'accepted') {
+                            return !participants.find(
+                                (participant) => participant._id === friend.user._id
+                            );
+                        }
+                    });
+
+                    setFriendsNotInChannel(nonChannelFriends);
+                    setFilteredFriends(nonChannelFriends);
                     setParticipants(participants);
                 }
             } catch (error) {
                 setFriendGetError(true);
             }
+
+            setLoading(false);
         }
 
         getFriends();
@@ -66,14 +80,53 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
 
     function filterFriends(input) {
         setFilteredFriends(
-            friends.filter((friend) =>
+            friendsNotInChannel.filter((friend) =>
                 friend.user.username.toLowerCase().includes(input.value.toLowerCase())
             )
         );
+        console.log(filteredFriends);
     }
 
     return (
         <dialog onClick={(e) => closeModal(e, setIsModalOpen, closeMenu)} ref={addModalRef}>
+            {loading ? (
+                <Loading text="Loading friends" />
+            ) : friendGetError ? (
+                <div className={modalStyles.modal}>
+                    Something went wrong - please try again later!
+                </div>
+            ) : (
+                <div className={modalStyles.modal}>
+                    {Boolean(friendsNotInChannel.length) && <Filter callback={filterFriends} />}
+
+                    {!friendsNotInChannel.length ? (
+                        <div>All of your friends are already in this channel!</div>
+                    ) : !filteredFriends.length ? (
+                        <div>Could not find any friends matching the filter criteria.</div>
+                    ) : (
+                        filteredFriends.map((friend) => {
+                            if (
+                                !participants.find(
+                                    (participant) => participant._id === friend.user._id
+                                )
+                            ) {
+                                return (
+                                    <div key={friend.user._id} className={styles.friend}>
+                                        {friend.user.username}
+                                        <button
+                                            className={modalStyles.button}
+                                            onClick={() => addUserToChannel(friend.user._id)}
+                                        >
+                                            Add to channel
+                                        </button>
+                                    </div>
+                                );
+                            }
+                        })
+                    )}
+                </div>
+            )}
+
             <button
                 id="close"
                 className={modalStyles.close}
@@ -81,34 +134,6 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
             >
                 {'\u2A2F'}
             </button>
-
-            {friendGetError ? (
-                <div className={modalStyles.modal}>
-                    Something went wrong - please try again later!
-                </div>
-            ) : (
-                <div className={modalStyles.modal}>
-                    <Filter callback={filterFriends} />
-
-                    {filteredFriends.map((friend) => {
-                        if (
-                            !participants.find((participant) => participant._id === friend.user._id)
-                        ) {
-                            return (
-                                <div key={friend.user._id} className={styles.friend}>
-                                    {friend.user.username}
-                                    <button
-                                        className={modalStyles.button}
-                                        onClick={() => addUserToChannel(friend.user._id)}
-                                    >
-                                        Add to channel
-                                    </button>
-                                </div>
-                            );
-                        }
-                    })}
-                </div>
-            )}
         </dialog>
     );
 });

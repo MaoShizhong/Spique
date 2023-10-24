@@ -36,14 +36,6 @@ export const EditChannelNameModal = forwardRef(function EditChannelNameModal(
 
     return (
         <dialog onClick={(e) => closeModal(e, setIsModalOpen, closeMenu)} ref={nameModalRef}>
-            <button
-                id="close"
-                className={modalStyles.close}
-                onClick={(e) => closeModal(e, setIsModalOpen)}
-            >
-                {'\u2A2F'}
-            </button>
-
             <div className={modalStyles.modal}>
                 <form className={styles.new_name} onSubmit={changeChannelName}>
                     <input
@@ -56,6 +48,14 @@ export const EditChannelNameModal = forwardRef(function EditChannelNameModal(
                     <button className={modalStyles.button}>Set</button>
                 </form>
             </div>
+
+            <button
+                id="close"
+                className={modalStyles.close}
+                onClick={(e) => closeModal(e, setIsModalOpen)}
+            >
+                {'\u2A2F'}
+            </button>
         </dialog>
     );
 });

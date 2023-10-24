@@ -47,14 +47,6 @@ export const ConfirmPasswordModal = forwardRef(function ConfirmPasswordModal(
                 </div>
             ) : (
                 <>
-                    <button
-                        id="close"
-                        className={modalStyles.close}
-                        onClick={(e) => closeModal(e, setIsModalShowing)}
-                    >
-                        {'\u2A2F'}
-                    </button>
-
                     <form className={modalStyles.modal} onSubmit={verifyPassword}>
                         <label htmlFor="password">
                             For security reasons, please enter your password:
@@ -75,6 +67,14 @@ export const ConfirmPasswordModal = forwardRef(function ConfirmPasswordModal(
                         )}
                         <button className="bg-accented-lg">Verify password</button>
                     </form>
+
+                    <button
+                        id="close"
+                        className={modalStyles.close}
+                        onClick={(e) => closeModal(e, setIsModalShowing)}
+                    >
+                        {'\u2A2F'}
+                    </button>
                 </>
             )}
         </dialog>

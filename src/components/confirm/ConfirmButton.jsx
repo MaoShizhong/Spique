@@ -13,18 +13,18 @@ export function ConfirmButton({ initialText, callback, buttonAlignment }) {
                     <div className={styles.buttons}>
                         <button
                             className="bg-accented-sm"
+                            onClick={() => setIsShowingConfirm(false)}
+                        >
+                            No
+                        </button>
+                        <button
+                            className="bg-accented-sm"
                             onClick={() => {
                                 callback();
                                 setIsShowingConfirm(false);
                             }}
                         >
                             Yes
-                        </button>
-                        <button
-                            className="bg-accented-sm"
-                            onClick={() => setIsShowingConfirm(false)}
-                        >
-                            No
                         </button>
                     </div>
                 </div>
