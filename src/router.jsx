@@ -3,6 +3,7 @@ import App from './App';
 import { Channel } from './components/channels/Channel';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { ErrorPage } from './components/error/ErrorPage';
+import { PasswordReset } from './components/password_reset/PasswordReset';
 
 export const router = createBrowserRouter([
     {
@@ -15,5 +16,9 @@ export const router = createBrowserRouter([
             { path: '/dashboard', element: <Dashboard /> },
             { path: '/channels/:channelID', element: <Channel /> },
         ],
+    },
+    {
+        path: '/password-reset/:resetID',
+        element: <PasswordReset />,
     },
 ]);

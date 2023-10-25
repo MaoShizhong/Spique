@@ -1,0 +1,8 @@
+.main {
+    display: grid;
+    place-content: center;
+
+    & > p {
+        text-align: center;
+    }
+}
