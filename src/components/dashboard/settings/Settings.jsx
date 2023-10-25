@@ -7,11 +7,23 @@ import { ChangeableDetail } from './ChangeableDetail';
 import styles from './settings.module.css';
 
 export function Settings() {
-    const { setUser } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const goTo = useNavigate();
 
     async function sendPasswordResetEmail() {
+        try {
+            const res = await fetchData('/auth/password-tokens', 'POST', { userID: user._id });
+
+            if (res.ok) {
+                console.log('success!');
+            } else {
+                console.log(res);
+            }
+        } catch (error) {
+            alert('Something went wrong with the server. Please try again later.');
+        }
+
         alert(
             'An email containing a password reset link has been sent to the email associated with this account.\n' +
                 'The link will expire after 10 minutes.'

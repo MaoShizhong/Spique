@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { fetchData } from '../../helpers/helpers';
 import { Github } from '../dashboard/Github';
 import { Loading } from '../loading/Loading';
+import { ForgotPasswordModal } from './ForgotPasswordModal';
 import { LoginForm } from './LoginForm';
 import { SignupForm } from './SignupForm';
 import styles from './login.module.css';
@@ -12,14 +13,20 @@ export function Login() {
     const [formType, setFormType] = useState('login');
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState(null);
+    const [isForgotModalShowing, setIsForgotModalShowing] = useState(false);
 
     const { user, setUser } = useContext(UserContext);
 
+    const modalRef = useRef(null);
     const goTo = useNavigate();
 
     useEffect(() => {
         if (user) goTo('/dashboard');
     }, [user, goTo]);
+
+    useEffect(() => {
+        if (modalRef.current) modalRef.current.showModal();
+    }, [isForgotModalShowing]);
 
     async function submitForm(e) {
         e.preventDefault();
@@ -98,7 +105,19 @@ export function Login() {
                         </form>
                     </>
                 )}
+
+                <button
+                    type="button"
+                    className={styles.forgot}
+                    onClick={() => setIsForgotModalShowing(true)}
+                >
+                    Forgot password?
+                </button>
             </div>
+
+            {isForgotModalShowing && (
+                <ForgotPasswordModal setIsModalShowing={setIsForgotModalShowing} ref={modalRef} />
+            )}
         </main>
     );
 }

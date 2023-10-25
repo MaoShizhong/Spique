@@ -68,7 +68,7 @@
     width: min(80vw, 360px);
 }
 
-.loginSignup > button {
+.loginSignup > button:not(.forgot) {
     background-color: color-mix(in hsl, var(--accent-d) 60%, var(--bg-l));
     background-color: var(--accent-d);
     border-radius: 0.75rem;
@@ -79,6 +79,18 @@
     &:hover {
         background-color: var(--accent-l);
         color: var(--fg-contrast);
+    }
+}
+
+.forgot {
+    align-self: flex-end;
+    font-size: 0.75rem;
+    font-style: italic;
+    margin-top: 0.5rem;
+
+    &:hover {
+        color: var(--accent-l);
+        text-decoration: underline;
     }
 }
 
