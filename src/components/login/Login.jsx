@@ -39,26 +39,23 @@ export function Login() {
 
         const endpoint = formType === 'login' ? '/auth/sessions' : '/auth/users';
 
-        try {
-            const res = await fetchData(endpoint, 'POST', form);
+        const res = await fetchData(endpoint, 'POST', form);
 
-            if (res.ok) {
-                const user = await res.json();
-
-                setUser(user);
-                setLoading(false);
-            } else if (res.status === 401) {
-                setErrors(true);
-                setLoading(false);
-            } else {
-                const errors = await res.json();
-
-                setErrors(errors);
-                setLoading(false);
-            }
-        } catch (error) {
-            setLoading(false);
+        if (res instanceof Error) {
             goTo('/error');
+        } else if (res.ok) {
+            const user = await res.json();
+
+            setUser(user);
+            setLoading(false);
+        } else if (res.status === 401) {
+            setErrors(true);
+            setLoading(false);
+        } else {
+            const errors = await res.json();
+
+            setErrors(errors);
+            setLoading(false);
         }
     }
 

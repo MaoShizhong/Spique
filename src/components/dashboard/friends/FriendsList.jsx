@@ -1,7 +1,7 @@
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 import { Filter } from '../Filter';
 import { AddFriendsModal } from './AddFriendsModal';
-import { RemoveButton } from './friend_request_buttons/RemoveButton';
+import { AddRemoveButton } from './friend_request_buttons/AddRemoveButton';
 import { RespondButtons } from './friend_request_buttons/RespondButtons';
 import styles from './friends.module.css';
 
@@ -61,7 +61,8 @@ export function FriendsList({ friends, setFriends }) {
                                     ) : friend.status === 'requested' ? (
                                         <div>Requested</div>
                                     ) : (
-                                        <RemoveButton
+                                        <AddRemoveButton
+                                            type="remove"
                                             targetUserID={friend.user._id}
                                             setFriends={setFriends}
                                         />

@@ -9,14 +9,16 @@ export const ForgotPasswordModal = forwardRef(function ForgotPasswordModal(
     async function sendPasswordResetEmail(e) {
         e.preventDefault();
 
-        try {
-            await fetchData('/auth/password-tokens', 'POST', { userEmail: e.target.email.value });
+        const res = await fetchData('/auth/password-tokens', 'POST', {
+            userEmail: e.target.email.value,
+        });
 
+        if (res instanceof Error) {
+            alert('Something went wrong with the server. Please try again later.');
+        } else {
             alert(
                 'Password reset request received.\nIf this email is associated with an account then an email will be sent containing a unique password reset link.'
             );
-        } catch (error) {
-            alert('Something went wrong with the server. Please try again later.');
         }
 
         setIsModalShowing(false);

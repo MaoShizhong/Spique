@@ -15,16 +15,14 @@ export default function App() {
 
     useEffect(() => {
         async function autoLogin() {
-            try {
-                const res = await fetchData('/auth/sessions', 'GET');
+            const res = await fetchData('/auth/sessions', 'GET');
 
-                if (res.ok) {
-                    setUser(await res.json());
-                } else {
-                    goTo('/');
-                }
-            } catch (error) {
-                goTo('/error');
+            if (res instanceof Error) {
+                alert('Something went wrong with the server, please try again later!');
+            } else if (!res.ok) {
+                goTo('/');
+            } else {
+                setUser(await res.json());
             }
         }
 

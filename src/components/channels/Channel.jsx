@@ -48,21 +48,19 @@ export function Channel() {
     }, [messages.length, latestMessageAction, messagesHeight, setLatestMessageAction]);
 
     async function loadMoreMessages() {
-        try {
-            const nextPage = pagesShown + 1;
+        const nextPage = pagesShown + 1;
 
-            const res = await fetchData(`/channels/${channelID}/messages?page=${nextPage}`);
+        const res = await fetchData(`/channels/${channelID}/messages?page=${nextPage}`);
 
-            if (res.ok) {
-                const data = await res.json();
-
-                setLatestMessageAction('scroll');
-                setMessages((prev) => [...prev, ...data.messages]);
-                setHasMoreMessages(data.hasMoreMessages);
-                setPagesShown(nextPage);
-            }
-        } catch (error) {
+        if (res instanceof Error) {
             goTo('/error');
+        } else if (res.ok) {
+            const data = await res.json();
+
+            setLatestMessageAction('scroll');
+            setMessages((prev) => [...prev, ...data.messages]);
+            setHasMoreMessages(data.hasMoreMessages);
+            setPagesShown(nextPage);
         }
     }
 
@@ -121,23 +119,21 @@ function useGetMessages(channelID) {
     const [messages, setMessages] = useState([]);
     const [hasMoreMessages, setHasMoreMessages] = useState(false);
     const [latestMessageAction, setLatestMessageAction] = useState(null);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchChannelMessages() {
-            try {
-                const res = await fetchData(`/channels/${channelID}/messages`);
+            const res = await fetchData(`/channels/${channelID}/messages`);
 
-                if (res.ok) {
-                    const data = await res.json();
+            if (res instanceof Error) {
+                setError(true);
+            } else if (res.ok) {
+                const data = await res.json();
 
-                    setMessages(data.messages);
-                    setHasMoreMessages(data.hasMoreMessages);
-                    setLatestMessageAction('add');
-                }
-            } catch (error) {
-                setError(error);
+                setMessages(data.messages);
+                setHasMoreMessages(data.hasMoreMessages);
+                setLatestMessageAction('add');
             }
 
             setLoading(false);

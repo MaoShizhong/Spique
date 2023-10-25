@@ -12,22 +12,15 @@ export function Settings() {
     const goTo = useNavigate();
 
     async function sendPasswordResetEmail() {
-        try {
-            const res = await fetchData('/auth/password-tokens', 'POST', { userID: user._id });
+        const res = await fetchData('/auth/password-tokens', 'POST', { userID: user._id });
 
-            if (res.ok) {
-                console.log('success!');
-            } else {
-                console.log(res);
-            }
-        } catch (error) {
-            alert('Something went wrong with the server. Please try again later.');
+        if (res instanceof Error || !res.ok) {
+            goTo('/error');
+        } else {
+            alert(
+                'An email containing a password reset link has been sent to the email associated with this account.\nThe link will expire after 10 minutes.'
+            );
         }
-
-        alert(
-            'An email containing a password reset link has been sent to the email associated with this account.\n' +
-                'The link will expire after 10 minutes.'
-        );
     }
 
     async function logout() {

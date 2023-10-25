@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { fetchData, sortChannels, sortFriends } from '../../helpers/helpers';
 import { Loading } from '../loading/Loading';
@@ -17,6 +18,8 @@ export function Dashboard() {
     const [page, setPage] = useState('channels');
     const [loading, setLoading] = useState(true);
 
+    const goTo = useNavigate();
+
     const friendRequestCount = friends.filter((friend) => friend.status === 'incoming').length;
 
     useEffect(() => {
@@ -27,6 +30,10 @@ export function Dashboard() {
                 fetchData(`/users/${user._id}/channels`, 'GET'),
                 fetchData(`/users/${user._id}/friends`, 'GET'),
             ]);
+
+            if (usersChannels instanceof Error || usersFriends instanceof Error) {
+                goTo('/error');
+            }
 
             if (usersChannels.ok) {
                 const channels = await usersChannels.json();
@@ -42,7 +49,7 @@ export function Dashboard() {
         }
 
         getChannelsAndFriends();
-    }, [user]);
+    }, [user, goTo]);
 
     return (
         <>

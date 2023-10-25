@@ -23,12 +23,12 @@ export function ChannelMenu({ channelName, setChannelName, closeMenu }) {
     }, [isAddUserModalOpen, isNameModalOpen]);
 
     async function leaveChannel() {
-        try {
-            await fetchData(`/channels/${channelID}?action=leave`, 'PUT');
+        const res = await fetchData(`/channels/${channelID}?action=leave`, 'PUT');
 
-            goTo('/dashboard');
-        } catch (error) {
+        if (res instanceof Error) {
             goTo('/error');
+        } else {
+            goTo('/dashboard');
         }
     }
 

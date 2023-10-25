@@ -29,11 +29,11 @@ export const CreateChannelModal = forwardRef(function CreateChannelModal(
 
         const res = await fetchData(`/channels?participants=${participantsQuery}`, 'POST');
 
-        if (res.ok) {
+        if (res instanceof Error || !res.ok) {
+            goTo('/error');
+        } else {
             const newChannel = await res.json();
             goTo(newChannel.url, { state: { channelName: newChannel.name } });
-        } else {
-            goTo('/error');
         }
     }
 

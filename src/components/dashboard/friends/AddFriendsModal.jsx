@@ -1,8 +1,7 @@
 import { forwardRef, useCallback, useEffect, useState } from 'react';
 import { closeModal, fetchData } from '../../../helpers/helpers';
 import modalStyles from '../../../modals.module.css';
-import { AddButton } from './friend_request_buttons/AddButton';
-import { RemoveButton } from './friend_request_buttons/RemoveButton';
+import { AddRemoveButton } from './friend_request_buttons/AddRemoveButton';
 import { RespondButtons } from './friend_request_buttons/RespondButtons';
 import styles from './friends.module.css';
 
@@ -17,12 +16,14 @@ export const AddFriendsModal = forwardRef(function AddFriendsModal(
     const searchUsers = useCallback(async () => {
         const res = await fetchData(`/users?search=${searchText}`, 'GET');
 
-        if (res.ok) {
+        if (res instanceof Error) {
+            alert('Something went wrong with the server, please try again later.');
+        } else if (!res.ok) {
+            setSearchError(res.status);
+        } else {
             const results = await res.json();
             setSearchResults(results);
             setSearchError(null);
-        } else {
-            setSearchError(res.status);
         }
     }, [searchText]);
 
@@ -72,9 +73,17 @@ export const AddFriendsModal = forwardRef(function AddFriendsModal(
                                 ) : friendStatus(user) === 'requested' ? (
                                     <div>Requested</div>
                                 ) : friendStatus(user) === 'accepted' ? (
-                                    <RemoveButton targetUserID={user._id} setFriends={setFriends} />
+                                    <AddRemoveButton
+                                        type="remove"
+                                        targetUserID={user._id}
+                                        setFriends={setFriends}
+                                    />
                                 ) : (
-                                    <AddButton targetUserID={user._id} setFriends={setFriends} />
+                                    <AddRemoveButton
+                                        type="add"
+                                        targetUserID={user._id}
+                                        setFriends={setFriends}
+                                    />
                                 )}
                             </div>
                         ))}

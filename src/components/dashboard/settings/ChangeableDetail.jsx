@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../App';
 import { fetchData } from '../../../helpers/helpers';
 import { ConfirmPasswordModal } from './ConfirmPasswordModal';
@@ -14,6 +15,7 @@ export function ChangeableDetail({ userDetail }) {
     const [error, setError] = useState(null);
 
     const modalRef = useRef(null);
+    const goTo = useNavigate();
 
     useEffect(() => {
         // Else submitting one will not clear an error showing on the other
@@ -28,36 +30,30 @@ export function ChangeableDetail({ userDetail }) {
         if (!passwordConfirmed || !inputValue) return;
 
         async function changeDetail() {
-            try {
-                const res = await fetchData(`/users/${user._id}/${userDetail}`, 'PUT', {
-                    [userDetail]: inputValue,
-                });
+            const res = await fetchData(`/users/${user._id}/${userDetail}`, 'PUT', {
+                [userDetail]: inputValue,
+            });
 
-                if (res.ok) {
-                    const updatedUser = await res.json();
-                    setUser(updatedUser);
+            if (res instanceof Error) {
+                goTo('/error');
+            } else if (res.ok) {
+                const updatedUser = await res.json();
+                setUser(updatedUser);
 
-                    alert(
-                        `${userDetail[0].toUpperCase()}${userDetail.slice(1)} successfully updated!`
-                    );
-                } else if (res.status === 403) {
-                    const errorMsg =
-                        userDetail === 'username'
-                            ? 'Username already taken.'
-                            : 'Email already registered to another account.';
-                    setError(errorMsg);
-                } else if (res.status === 400) {
-                    const errorMsg =
-                        userDetail === 'username'
-                            ? 'Username must be alphanumeric only and contain at least 3 characters.'
-                            : 'Invalid email format.';
-                    setError(errorMsg);
-                } else {
-                    alert('Something went wrong with the server. Please try again later.');
-                }
-
-                // setInputValue('');
-            } catch (error) {
+                alert(`${userDetail[0].toUpperCase()}${userDetail.slice(1)} successfully updated!`);
+            } else if (res.status === 403) {
+                const errorMsg =
+                    userDetail === 'username'
+                        ? 'Username already taken.'
+                        : 'Email already registered to another account.';
+                setError(errorMsg);
+            } else if (res.status === 400) {
+                const errorMsg =
+                    userDetail === 'username'
+                        ? 'Username must be alphanumeric only and contain at least 3 characters.'
+                        : 'Invalid email format.';
+                setError(errorMsg);
+            } else {
                 alert('Something went wrong with the server. Please try again later.');
             }
 
@@ -67,7 +63,7 @@ export function ChangeableDetail({ userDetail }) {
         }
 
         changeDetail();
-    }, [passwordConfirmed, userDetail, user._id, inputValue, setUser]);
+    }, [passwordConfirmed, userDetail, user._id, inputValue, setUser, goTo]);
 
     async function changeUserDetails(e) {
         e.preventDefault();

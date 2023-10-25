@@ -17,21 +17,19 @@ export function NewMessageBox({ channelID, setMessages, setLatestMessageAction }
             return;
         }
 
-        try {
-            const res = await fetchData(`/channels/${channelID}/messages`, 'POST', {
-                text: messageText,
-            });
+        const res = await fetchData(`/channels/${channelID}/messages`, 'POST', {
+            text: messageText,
+        });
 
-            if (res.ok) {
-                const newMessage = await res.json();
+        if (res instanceof Error) {
+            goTo('/error');
+        } else if (res.ok) {
+            const newMessage = await res.json();
 
-                setMessages((prev) => [newMessage, ...prev]);
-                setLatestMessageAction('add');
-                e.target.text.value = '';
-            } else {
-                goTo('/error');
-            }
-        } catch (err) {
+            setMessages((prev) => [newMessage, ...prev]);
+            setLatestMessageAction('add');
+            e.target.text.value = '';
+        } else {
             goTo('/error');
         }
     }

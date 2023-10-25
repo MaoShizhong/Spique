@@ -17,19 +17,17 @@ export const EditChannelNameModal = forwardRef(function EditChannelNameModal(
 
         const form = e.target;
 
-        try {
-            const res = await fetchData(`/channels/${channelID}`, 'PATCH', {
-                name: form.name.value,
-            });
+        const res = await fetchData(`/channels/${channelID}`, 'PATCH', {
+            name: form.name.value,
+        });
 
-            if (res.ok) {
-                const { newChannelName } = await res.json();
-                setChannelName(newChannelName);
-                setIsModalOpen(false);
-            } else {
-                goTo('/error');
-            }
-        } catch (error) {
+        if (res instanceof Error) {
+            goTo('/error');
+        } else if (res.ok) {
+            const { newChannelName } = await res.json();
+            setChannelName(newChannelName);
+            setIsModalOpen(false);
+        } else {
             goTo('/error');
         }
     }

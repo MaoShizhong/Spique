@@ -1,4 +1,5 @@
 import { forwardRef, useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../App';
 import { closeModal, fetchData } from '../../../helpers/helpers';
 import modalStyles from '../../../modals.module.css';
@@ -13,23 +14,23 @@ export const ConfirmPasswordModal = forwardRef(function ConfirmPasswordModal(
     const [loading, setLoading] = useState(false);
     const [isVerificationError, setIsVerificationError] = useState(false);
 
+    const goTo = useNavigate();
+
     async function verifyPassword(e) {
         e.preventDefault();
         setLoading(true);
 
-        try {
-            const res = await fetchData(`/auth/users/${user._id}/password`, 'POST', {
-                password: e.target.password.value,
-            });
+        const res = await fetchData(`/auth/users/${user._id}/password`, 'POST', {
+            password: e.target.password.value,
+        });
 
-            if (res.ok) {
-                setPasswordConfirmed(true);
-                setIsModalShowing(false);
-            } else {
-                setIsVerificationError(true);
-            }
-        } catch (error) {
-            alert('Something went wrong with the server. Please try again later.');
+        if (res instanceof Error) {
+            goTo('/error');
+        } else if (!res.ok) {
+            setIsVerificationError(true);
+        } else {
+            setPasswordConfirmed(true);
+            setIsModalShowing(false);
         }
 
         setLoading(false);

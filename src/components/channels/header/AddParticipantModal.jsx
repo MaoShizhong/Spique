@@ -23,32 +23,33 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
 
     useEffect(() => {
         async function getFriends() {
-            try {
-                const [friendsRes, channelRes] = await Promise.all([
-                    fetchData(`/users/${user._id}/friends`),
-                    fetchData(`/channels/${channelID}`),
-                ]);
+            const [friendsRes, channelRes] = await Promise.all([
+                fetchData(`/users/${user._id}/friends`),
+                fetchData(`/channels/${channelID}`),
+            ]);
 
-                if (!friendsRes.ok || !channelRes.ok) {
-                    setFriendGetError(true);
-                } else {
-                    const friends = await friendsRes.json();
-                    const { participants } = await channelRes.json();
-
-                    const nonChannelFriends = friends.filter((friend) => {
-                        if (friend.status === 'accepted') {
-                            return !participants.find(
-                                (participant) => participant._id === friend.user._id
-                            );
-                        }
-                    });
-
-                    setFriendsNotInChannel(nonChannelFriends);
-                    setFilteredFriends(nonChannelFriends);
-                    setParticipants(participants);
-                }
-            } catch (error) {
+            if (
+                friendsRes instanceof Error ||
+                channelRes instanceof Error ||
+                !friendsRes.ok ||
+                !channelRes.ok
+            ) {
                 setFriendGetError(true);
+            } else {
+                const friends = await friendsRes.json();
+                const { participants } = await channelRes.json();
+
+                const nonChannelFriends = friends.filter((friend) => {
+                    if (friend.status === 'accepted') {
+                        return !participants.find(
+                            (participant) => participant._id === friend.user._id
+                        );
+                    }
+                });
+
+                setFriendsNotInChannel(nonChannelFriends);
+                setFilteredFriends(nonChannelFriends);
+                setParticipants(participants);
             }
 
             setLoading(false);
@@ -58,20 +59,15 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
     }, [user, channelID]);
 
     async function addUserToChannel(friendID) {
-        try {
-            const res = await fetchData(
-                `/channels/${channelID}?action=add&target=${friendID}`,
-                'PUT'
-            );
+        const res = await fetchData(`/channels/${channelID}?action=add&target=${friendID}`, 'PUT');
 
-            if (res.ok) {
-                const { newChannelName } = await res.json();
-                setChannelName(newChannelName);
-                setIsModalOpen(false);
-            } else {
-                setFriendGetError(true);
-            }
-        } catch (error) {
+        if (res instanceof Error) {
+            setFriendGetError(true);
+        } else if (res.ok) {
+            const { newChannelName } = await res.json();
+            setChannelName(newChannelName);
+            setIsModalOpen(false);
+        } else {
             setFriendGetError(true);
         }
     }
