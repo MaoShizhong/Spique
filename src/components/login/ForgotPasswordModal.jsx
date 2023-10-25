@@ -40,7 +40,7 @@ export const ForgotPasswordModal = forwardRef(function ForgotPasswordModal(
                     required
                 />
 
-                <button className="bg-accented-lg">Verify password</button>
+                <button className="bg-accented-lg">Send password reset email</button>
             </form>
 
             <button
