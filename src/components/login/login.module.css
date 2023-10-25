@@ -68,7 +68,7 @@
     width: min(80vw, 360px);
 }
 
-.loginSignup > button:not(.forgot) {
+.loginSignup > button {
     background-color: color-mix(in hsl, var(--accent-d) 60%, var(--bg-l));
     background-color: var(--accent-d);
     border-radius: 0.75rem;
