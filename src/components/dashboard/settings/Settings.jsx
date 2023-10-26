@@ -12,6 +12,11 @@ export function Settings() {
     const goTo = useNavigate();
 
     async function sendPasswordResetEmail() {
+        if (user.isDemo) {
+            alert('This feature does not work for demo accounts.');
+            return;
+        }
+
         const res = await fetchData('/auth/password-tokens', 'POST', { userID: user._id });
 
         if (res instanceof Error || !res.ok) {

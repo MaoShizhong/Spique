@@ -28,13 +28,20 @@ export function Login() {
         if (modalRef.current) modalRef.current.showModal();
     }, [isForgotModalShowing]);
 
-    async function submitForm(e) {
+    async function submitForm(e, demoAccount) {
         e.preventDefault();
         setLoading(true);
 
         const form = {};
-        for (const input of Object.values(e.target)) {
-            if (input instanceof HTMLInputElement) form[input.name] = input.value;
+
+        // handle demo account button
+        if (demoAccount) {
+            form.username = `DemoAccount${demoAccount}`;
+            form.password = import.meta.env.VITE_DEMO_PW;
+        } else {
+            for (const input of Object.values(e.target)) {
+                if (input instanceof HTMLInputElement) form[input.name] = input.value;
+            }
         }
 
         const endpoint = formType === 'login' ? '/auth/sessions' : '/auth/users';
@@ -95,21 +102,31 @@ export function Login() {
 
                         <form className={styles.loginSignup} onSubmit={submitForm}>
                             {formType === 'login' ? (
-                                <LoginForm hasError={errors} />
+                                <>
+                                    <LoginForm hasError={errors} />
+                                    <div className={styles.demo}>
+                                        <button type="button" onClick={(e) => submitForm(e, 1)}>
+                                            Demo account 1
+                                        </button>
+                                        <button type="button" onClick={(e) => submitForm(e, 2)}>
+                                            Demo account 2
+                                        </button>
+                                    </div>
+                                </>
                             ) : (
                                 <SignupForm errors={errors} />
                             )}
                         </form>
+
+                        <button
+                            type="button"
+                            className={styles.forgot}
+                            onClick={() => setIsForgotModalShowing(true)}
+                        >
+                            Forgot password?
+                        </button>
                     </>
                 )}
-
-                <button
-                    type="button"
-                    className={styles.forgot}
-                    onClick={() => setIsForgotModalShowing(true)}
-                >
-                    Forgot password?
-                </button>
             </div>
 
             {isForgotModalShowing && (

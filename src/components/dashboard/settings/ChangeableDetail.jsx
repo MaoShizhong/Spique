@@ -8,6 +8,8 @@ import styles from './settings.module.css';
 export function ChangeableDetail({ userDetail }) {
     const { user, setUser } = useContext(UserContext);
 
+    console.log(user);
+
     const [isInputDisabled, setIsInputDisabled] = useState(true);
     const [inputValue, setInputValue] = useState('');
     const [isPasswordModalShowing, setIsPasswordModalShowing] = useState(false);
@@ -67,6 +69,10 @@ export function ChangeableDetail({ userDetail }) {
 
     async function changeUserDetails(e) {
         e.preventDefault();
+
+        // prevent changing user details if demo account
+        if (user.isDemo) return;
+
         setIsPasswordModalShowing(true);
     }
 
@@ -93,7 +99,9 @@ export function ChangeableDetail({ userDetail }) {
 
                 {error && <div className={styles.error}>{error}</div>}
 
-                {isInputDisabled ? (
+                {user.isDemo ? (
+                    <div className={styles.demo}>Unable to change details on demo account</div>
+                ) : isInputDisabled ? (
                     <button
                         type="button"
                         onClick={() => {
