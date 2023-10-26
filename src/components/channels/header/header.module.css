@@ -43,6 +43,7 @@
 
     &:hover {
         cursor: pointer;
+        padding-left: 1.5rem;
     }
 }
 
@@ -59,18 +60,18 @@
     margin: 0;
 
     & > * {
-        height: 3.5rem;
-        padding-inline: 1rem;
+        min-height: 3.5rem;
+        padding: 1rem;
         text-align: right;
         user-select: none;
         width: 100%;
 
         &:hover {
             background-color: var(--bg-d);
-        }
 
-        &:is(button):hover {
-            color: var(--accent-l);
+            &:is(button) {
+                color: var(--accent-l);
+            }
         }
     }
 }
