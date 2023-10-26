@@ -5,7 +5,7 @@
     gap: 0.5rem;
     height: fit-content;
     overflow-wrap: anywhere;
-    padding-inline: 0.5rem;
+    padding-left: 0.5rem;
     position: relative;
     width: 100%;
 
@@ -21,13 +21,13 @@
 
 .button {
     height: 2rem;
-    padding: 0.25rem;
+    padding: 0.4rem;
     width: 2.5rem;
 
     & > svg {
         height: 100%;
         transition: 120ms ease;
-        width: 100%;
+        width: 2rem;
 
         &:hover {
             color: var(--accent-l);
@@ -38,6 +38,7 @@
 .options {
     height: 100%;
     margin-left: auto;
+    padding-right: 2.5rem;
     position: relative;
 
     &:hover {
@@ -48,20 +49,25 @@
 .menu {
     background-color: var(--bg-m);
     margin: 0;
-    padding-inline: 1rem;
     position: absolute;
-    right: -0.5rem;
+    right: 0;
     width: min(45vw, 180px);
 }
 
 .menu_options {
     list-style: none;
     margin: 0;
-    text-align: right;
 
     & > * {
-        margin-block: 1.5rem;
+        height: 3.5rem;
+        padding-inline: 1rem;
+        text-align: right;
         user-select: none;
+        width: 100%;
+
+        &:hover {
+            background-color: var(--bg-d);
+        }
 
         &:is(button):hover {
             color: var(--accent-l);
