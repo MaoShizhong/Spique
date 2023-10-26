@@ -14,13 +14,16 @@ export function FriendsList({ friends, setFriends }) {
 
     const filterFriends = useCallback(
         (searchBar) => {
-            if (!searchBar.value) return;
+            if (!searchBar.value) {
+                setFilteredFriends(friends);
+                return;
+            }
 
             const filtered = friends.filter((friend) =>
                 friend.user.username.toLowerCase().includes(searchBar.value.toLowerCase())
             );
 
-            setFilteredFriends(searchBar.value ? filtered : friends);
+            setFilteredFriends(filtered);
         },
         [friends]
     );
