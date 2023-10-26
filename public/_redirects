@@ -1,2 +1,2 @@
-/api/* https://spique-backend.adaptable.app/:splat 200
+/api/* https://localhost:5000/:splat 200
 /* /index.html 200
