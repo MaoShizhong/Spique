@@ -81,7 +81,11 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
     }
 
     return (
-        <dialog onClick={(e) => closeModal(e, setIsModalOpen, closeMenu)} ref={addModalRef}>
+        <dialog
+            onClick={(e) => closeModal(e, setIsModalOpen, closeMenu)}
+            aria-modal
+            ref={addModalRef}
+        >
             {loading ? (
                 <Loading text="Loading friends" />
             ) : friendGetError ? (
@@ -90,12 +94,20 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
                 </div>
             ) : (
                 <div className={modalStyles.modal}>
-                    {Boolean(friendsNotInChannel.length) && <Filter callback={filterFriends} />}
+                    <div className="sr-only" aria-live="polite">
+                        Opened add participant modal
+                    </div>
+
+                    {Boolean(friendsNotInChannel.length) && (
+                        <Filter list="friends list" callback={filterFriends} />
+                    )}
 
                     {!friendsNotInChannel.length ? (
-                        <div>All of your friends are already in this channel!</div>
+                        <div tabIndex={0}>All of your friends are already in this channel!</div>
                     ) : !filteredFriends.length ? (
-                        <div>Could not find any friends matching the filter criteria.</div>
+                        <div tabIndex={0}>
+                            Could not find any friends matching the filter criteria.
+                        </div>
                     ) : (
                         filteredFriends.map((friend) => {
                             if (
@@ -104,11 +116,17 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
                                 )
                             ) {
                                 return (
-                                    <div key={friend.user._id} className={styles.friend}>
+                                    <div
+                                        key={friend.user._id}
+                                        className={styles.friend}
+                                        aria-label={`Friend name: ${friend.user.username}`}
+                                        tabIndex={0}
+                                    >
                                         {friend.user.username}
                                         <button
                                             className={modalStyles.button}
                                             onClick={() => addUserToChannel(friend.user._id)}
+                                            aria-label={`Add ${friend.user.username} to channel`}
                                         >
                                             Add to channel
                                         </button>
@@ -124,6 +142,7 @@ export const AddParticipantModal = forwardRef(function AddParticipantModal(
                 id="close"
                 className={modalStyles.close}
                 onClick={(e) => closeModal(e, setIsModalOpen)}
+                aria-label="close add participants modal"
             >
                 {'\u2A2F'}
             </button>

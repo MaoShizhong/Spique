@@ -34,19 +34,29 @@ export function ChannelMenu({ channelName, setChannelName, closeMenu }) {
 
     return (
         <>
+            <div className="sr-only" aria-live="polite">
+                Opened channel options menu
+            </div>
+
             <div className={styles.menu}>
                 <ul className={styles.menu_options}>
-                    <button onClick={() => setIsAddUserModalOpen(!isAddUserModalOpen)}>
-                        Add participant
-                    </button>
-                    <button onClick={() => setIsNameModalOpen(!isNameModalOpen)}>
-                        Edit channel name
-                    </button>
-                    <ConfirmButton
-                        initialText="Leave channel"
-                        callback={leaveChannel}
-                        buttonAlignment="right"
-                    />
+                    <li>
+                        <button onClick={() => setIsAddUserModalOpen(!isAddUserModalOpen)}>
+                            Add participant
+                        </button>
+                    </li>
+                    <li>
+                        <button onClick={() => setIsNameModalOpen(!isNameModalOpen)}>
+                            Edit channel name
+                        </button>
+                    </li>
+                    <li>
+                        <ConfirmButton
+                            initialText="Leave channel"
+                            callback={leaveChannel}
+                            buttonAlignment="right"
+                        />
+                    </li>
                 </ul>
             </div>
 

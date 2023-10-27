@@ -40,6 +40,7 @@ export const ConfirmPasswordModal = forwardRef(function ConfirmPasswordModal(
         <dialog
             onClick={(e) => closeModal(e, setIsModalShowing)}
             onSubmit={verifyPassword}
+            aria-modal
             ref={modalRef}
         >
             {loading ? (
@@ -48,6 +49,10 @@ export const ConfirmPasswordModal = forwardRef(function ConfirmPasswordModal(
                 </div>
             ) : (
                 <>
+                    <div className="sr-only" aria-live="polite">
+                        Opened password verification modal
+                    </div>
+
                     <form className={modalStyles.modal} onSubmit={verifyPassword}>
                         <label htmlFor="password">
                             For security reasons, please enter your password:
@@ -73,6 +78,7 @@ export const ConfirmPasswordModal = forwardRef(function ConfirmPasswordModal(
                         id="close"
                         className={modalStyles.close}
                         onClick={(e) => closeModal(e, setIsModalShowing)}
+                        aria-label="close password verification modal"
                     >
                         {'\u2A2F'}
                     </button>

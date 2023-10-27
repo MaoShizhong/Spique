@@ -8,8 +8,17 @@ export function ChannelPreview({ channel, username }) {
         latestMsg && latestMsg.user.username !== username ? latestMsg.user.username : 'You';
 
     return (
-        <Link to={`/channels/${channel._id}`} state={{ channelName: channel.name }}>
-            <article className={styles.channel}>
+        <Link
+            to={`/channels/${channel._id}`}
+            state={{ channelName: channel.name }}
+            className={styles.channel}
+            aria-label={`Link to channel: ${channel.name}. ${
+                latestMsg
+                    ? `Last message sent on ${toTimestamp(latestMsg.timestamp)}`
+                    : 'No messages.'
+            }`}
+        >
+            <article>
                 <div className={styles.details}>
                     <span className={styles.name}>{channel.name}</span>
                     {latestMsg && <span>{toTimestamp(latestMsg.timestamp)}</span>}

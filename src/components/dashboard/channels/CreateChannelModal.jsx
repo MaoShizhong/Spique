@@ -38,14 +38,10 @@ export const CreateChannelModal = forwardRef(function CreateChannelModal(
     }
 
     return (
-        <dialog onClick={(e) => closeModal(e, setIsCreateModalShowing)} ref={modalRef}>
-            <button
-                id="close"
-                className={modalStyles.close}
-                onClick={(e) => closeModal(e, setIsCreateModalShowing)}
-            >
-                {'\u2A2F'}
-            </button>
+        <dialog onClick={(e) => closeModal(e, setIsCreateModalShowing)} aria-modal ref={modalRef}>
+            <div className="sr-only" aria-live="polite">
+                Opened channel creation modal
+            </div>
 
             <div className={modalStyles.modal}>
                 <div className={styles.participants}>
@@ -64,12 +60,17 @@ export const CreateChannelModal = forwardRef(function CreateChannelModal(
                     {friends.map((friend) => {
                         if (friend.status === 'accepted') {
                             return (
-                                <div key={friend.user._id}>
+                                <div
+                                    key={friend.user._id}
+                                    aria-label={`Friend name: ${friend.user.username}`}
+                                    tabIndex={0}
+                                >
                                     <span>{friend.user.username}</span>
                                     {!participants.find((user) => user._id === friend.user._id) && (
                                         <button
                                             onClick={() => addAsParticipant(friend)}
                                             className={modalStyles.button}
+                                            aria-label={`add ${friend.user.username} as channel participant`}
                                         >
                                             Add
                                         </button>
@@ -81,7 +82,13 @@ export const CreateChannelModal = forwardRef(function CreateChannelModal(
                 </div>
 
                 {!participants.length && (
-                    <p className={modalStyles.error}>Please add at least one other user.</p>
+                    <p
+                        className={modalStyles.error}
+                        aria-label="Create channel button unlocks when at least one other participant is added"
+                        tabIndex={0}
+                    >
+                        Please add at least one other user.
+                    </p>
                 )}
 
                 <button
@@ -92,6 +99,15 @@ export const CreateChannelModal = forwardRef(function CreateChannelModal(
                     Create channel
                 </button>
             </div>
+
+            <button
+                id="close"
+                className={modalStyles.close}
+                onClick={(e) => closeModal(e, setIsCreateModalShowing)}
+                aria-label="close channel creation modal"
+            >
+                {'\u2A2F'}
+            </button>
         </dialog>
     );
 });

@@ -3,6 +3,10 @@ import styles from './login.module.css';
 export function LoginForm({ hasError }) {
     return (
         <>
+            <div className="sr-only" aria-live="polite">
+                Login screen
+            </div>
+
             <input
                 name="username"
                 type="text"

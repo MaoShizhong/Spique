@@ -3,6 +3,10 @@ import styles from './login.module.css';
 export function SignupForm({ errors }) {
     return (
         <>
+            <div className="sr-only" aria-live="polite">
+                Account creation screen
+            </div>
+
             {errors && (
                 <ul>
                     {errors.map((error, i) => (
@@ -51,7 +55,7 @@ export function SignupForm({ errors }) {
                 required
             />
 
-            <p className={styles.reqs}>
+            <p className={styles.reqs} tabIndex={0}>
                 Password must be at least 8 characters and include at least 1 uppercase, 1
                 lowercase, and 1 number
             </p>

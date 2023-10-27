@@ -25,7 +25,11 @@ export const ForgotPasswordModal = forwardRef(function ForgotPasswordModal(
     }
 
     return (
-        <dialog onClick={(e) => closeModal(e, setIsModalShowing)} ref={modalRef}>
+        <dialog onClick={(e) => closeModal(e, setIsModalShowing)} aria-modal ref={modalRef}>
+            <div className="sr-only" aria-live="polite">
+                Opened forgot password modal
+            </div>
+
             <form className={modalStyles.modal} onSubmit={sendPasswordResetEmail}>
                 <label htmlFor="email">
                     Please enter the email registered to your account below:
@@ -47,6 +51,7 @@ export const ForgotPasswordModal = forwardRef(function ForgotPasswordModal(
                 id="close"
                 className={modalStyles.close}
                 onClick={(e) => closeModal(e, setIsModalShowing)}
+                aria-label="close forgot password modal"
             >
                 {'\u2A2F'}
             </button>

@@ -54,7 +54,12 @@ export function Dashboard() {
     return (
         <>
             {loading ? (
-                <Loading text="Fetching data..." />
+                <>
+                    <div className="sr-only" aria-live="polite">
+                        Logging in
+                    </div>
+                    <Loading text="Fetching data..." />
+                </>
             ) : (
                 <>
                     <header className={styles.welcome}>

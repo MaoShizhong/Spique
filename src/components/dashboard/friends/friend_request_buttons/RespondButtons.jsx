@@ -3,12 +3,12 @@ import { UserContext } from '../../../../App';
 import { fetchData, sortFriends } from '../../../../helpers/helpers';
 import styles from '../friends.module.css';
 
-export function RespondButtons({ targetUserID, setFriends }) {
+export function RespondButtons({ targetUserID, targetUserUsername, setFriends }) {
     const { user } = useContext(UserContext);
 
     async function handleFriendRequest(action) {
         const res = await fetchData(
-            `/users/${user._id}/friends?action=${action}&userID=${targetUserID}`,
+            `/users/${user._id}/friends/${targetUserID}?action=${action}`,
             'PUT'
         );
 
@@ -26,14 +26,14 @@ export function RespondButtons({ targetUserID, setFriends }) {
             <button
                 onClick={() => handleFriendRequest('accept')}
                 className="bg-accented-sm"
-                aria-label="accept friend request"
+                aria-label={`Accept ${targetUserUsername}'s friend request`}
             >
                 {'\u2713'}
             </button>
             <button
                 onClick={() => handleFriendRequest('reject')}
                 className="bg-accented-sm"
-                aria-label="reject friend request"
+                aria-label={`Reject ${targetUserUsername}'s friend request`}
             >
                 {'\u2A2F'}
             </button>

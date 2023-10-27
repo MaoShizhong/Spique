@@ -15,6 +15,7 @@ export function ChannelHeader({ channelName, setChannelName }) {
                     goTo('/dashboard');
                 }}
                 className={styles.button}
+                aria-label="Back to channel list"
             >
                 <svg width="64px" height="64px" viewBox="0 0 1024 1024" fill="currentColor">
                     <g>
@@ -24,12 +25,20 @@ export function ChannelHeader({ channelName, setChannelName }) {
                 </svg>
             </button>
 
-            <h1>{channelName}</h1>
+            <h1 aria-label={`Channel name: ${channelName}`} tabIndex={0}>
+                {channelName}
+            </h1>
 
-            <div
+            <button
+                id="menu"
                 className={`${styles.button} ${styles.options}`}
+                onClick={(e) => {
+                    if (e.target.id === 'menu') setIsMenuOpen(!isMenuOpen);
+                }}
                 onMouseEnter={() => setIsMenuOpen(true)}
                 onMouseLeave={() => setIsMenuOpen(false)}
+                aria-label={isMenuOpen ? 'close channel options' : 'open channel options'}
+                tabIndex={0}
             >
                 {isMenuOpen ? (
                     <svg width="64px" height="64px" viewBox="0 0 24 24" stroke="currentColor">
@@ -52,7 +61,7 @@ export function ChannelHeader({ channelName, setChannelName }) {
                         closeMenu={() => setIsMenuOpen(false)}
                     />
                 )}
-            </div>
+            </button>
         </header>
     );
 }

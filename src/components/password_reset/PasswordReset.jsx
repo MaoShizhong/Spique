@@ -72,19 +72,33 @@ export function PasswordReset() {
     return (
         <main className={styles.main}>
             {verifying ? (
-                <Loading text="Verifying link" />
+                <>
+                    <div className="sr-only" aria-live="polite">
+                        Verifying reset link
+                    </div>
+
+                    <Loading text="Verifying link" />
+                </>
             ) : settingPassword ? (
-                <Loading text="Setting new password" />
+                <>
+                    <div className="sr-only" aria-live="polite">
+                        Setting new password
+                    </div>
+
+                    <Loading text="Setting new password" />
+                </>
             ) : connectionError ? (
                 <>
-                    <p>Something went wrong with the server, please try again later.</p>
+                    <p aria-live="polite">
+                        Something went wrong with the server, please try again later.
+                    </p>
                     <Link to="/" className={`${styles.return} bg-accented-l`}>
                         Return to homepage
                     </Link>
                 </>
             ) : !isValidToken ? (
                 <>
-                    <p>
+                    <p aria-live="polite">
                         This link has expired.
                         <br />
                         Please request a new password reset link.
@@ -95,6 +109,10 @@ export function PasswordReset() {
                 </>
             ) : (
                 <form className={styles.form} onSubmit={setNewPassword}>
+                    <div className="sr-only" aria-live="polite">
+                        Link verified. Password reset screen.
+                    </div>
+
                     <img src="/spique-full.png" alt="spique logo" className={styles.logo} />
 
                     <h1>Password reset</h1>

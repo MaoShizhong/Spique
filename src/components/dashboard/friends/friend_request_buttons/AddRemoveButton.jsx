@@ -4,20 +4,15 @@ import { UserContext } from '../../../../App';
 import { fetchData, sortFriends } from '../../../../helpers/helpers';
 import styles from '../friends.module.css';
 
-export function AddRemoveButton({ type, targetUserID, setFriends }) {
+export function AddRemoveButton({ type, targetUserID, targetUserUsername, setFriends }) {
     const { user } = useContext(UserContext);
 
     const goTo = useNavigate();
 
     async function handleFriend() {
-        const endpoint =
-            type === 'add'
-                ? `/users/${user._id}/friends?&action=add&userID=${targetUserID}`
-                : `/users/${user._id}/friends?&userID=${targetUserID}`;
+        const method = type === 'add' ? 'POST' : 'DELETE';
 
-        const method = type === 'add' ? 'PUT' : 'DELETE';
-
-        const res = await fetchData(endpoint, method);
+        const res = await fetchData(`/users/${user._id}/friends/${targetUserID}`, method);
 
         if (res instanceof Error) {
             goTo('/error');
@@ -32,14 +27,18 @@ export function AddRemoveButton({ type, targetUserID, setFriends }) {
     return (
         <>
             {type === 'add' ? (
-                <button className="bg-accented-sm" onClick={handleFriend}>
+                <button
+                    className="bg-accented-sm"
+                    onClick={handleFriend}
+                    aria-label={`Send ${targetUserUsername} a friend request`}
+                >
                     Add friend
                 </button>
             ) : (
                 <button
                     className={styles.remove}
                     onClick={handleFriend}
-                    aria-label="remove friend status"
+                    aria-label={`Remove ${targetUserUsername} as a friend`}
                 ></button>
             )}
         </>

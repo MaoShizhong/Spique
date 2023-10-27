@@ -28,7 +28,11 @@ export function ChannelList({ channels, friends }) {
 
     return (
         <>
-            <Filter callback={filterChannels} ref={inputRef} />
+            <div className="sr-only" aria-live="polite">
+                Channel list
+            </div>
+
+            <Filter list="channel list" callback={filterChannels} ref={inputRef} />
 
             <button className="bg-accented-lg" onClick={() => setIsCreateModalShowing(true)}>
                 Create new channel

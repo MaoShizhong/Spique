@@ -32,6 +32,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    padding-top: 3px; /* for tab focus outline to show */
 }
 
 .channel {
@@ -46,10 +47,11 @@
         max-width: 65%;
         overflow: hidden;
     }
+}
 
-    &:hover {
-        background-color: var(--bg-heavy-fade);
-    }
+.channel:hover,
+.channel:focus {
+    background-color: var(--bg-heavy-fade);
 }
 
 .details {

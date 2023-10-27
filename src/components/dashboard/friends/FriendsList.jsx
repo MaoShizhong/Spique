@@ -38,7 +38,11 @@ export function FriendsList({ friends, setFriends }) {
 
     return (
         <>
-            <Filter callback={filterFriends} ref={inputRef} />
+            <div className="sr-only" aria-live="polite">
+                Friends list
+            </div>
+
+            <Filter list="friends list" callback={filterFriends} ref={inputRef} />
 
             <button className="bg-accented-lg" onClick={() => setIsAddModalShowing(true)}>
                 Find friends
@@ -54,11 +58,16 @@ export function FriendsList({ friends, setFriends }) {
                     ) : (
                         filteredFriends.map((friend) => (
                             <Fragment key={friend.user._id}>
-                                <div className={styles.friend}>
+                                <div
+                                    className={styles.friend}
+                                    aria-label={`friend name: ${friend.user.username}. Status: ${friend.status}`}
+                                    tabIndex={0}
+                                >
                                     <span>{friend.user.username}</span>
                                     {friend.status === 'incoming' ? (
                                         <RespondButtons
                                             targetUserID={friend.user._id}
+                                            targetUserUsername={friend.user.username}
                                             setFriends={setFriends}
                                         />
                                     ) : friend.status === 'requested' ? (
@@ -67,6 +76,7 @@ export function FriendsList({ friends, setFriends }) {
                                         <AddRemoveButton
                                             type="remove"
                                             targetUserID={friend.user._id}
+                                            targetUserUsername={friend.user.username}
                                             setFriends={setFriends}
                                         />
                                     )}

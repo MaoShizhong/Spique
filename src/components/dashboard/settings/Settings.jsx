@@ -38,6 +38,10 @@ export function Settings() {
 
     return (
         <div className={styles.settings}>
+            <div className="sr-only" aria-live="polite">
+                Settings
+            </div>
+
             <ChangeableDetail userDetail="username" />
 
             <ChangeableDetail userDetail="email" />

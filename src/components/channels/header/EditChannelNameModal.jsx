@@ -33,7 +33,15 @@ export const EditChannelNameModal = forwardRef(function EditChannelNameModal(
     }
 
     return (
-        <dialog onClick={(e) => closeModal(e, setIsModalOpen, closeMenu)} ref={nameModalRef}>
+        <dialog
+            onClick={(e) => closeModal(e, setIsModalOpen, closeMenu)}
+            aria-modal
+            ref={nameModalRef}
+        >
+            <div className="sr-only" aria-live="polite">
+                Opened edit channel name modal
+            </div>
+
             <div className={modalStyles.modal}>
                 <form className={styles.new_name} onSubmit={changeChannelName}>
                     <input
@@ -43,7 +51,9 @@ export const EditChannelNameModal = forwardRef(function EditChannelNameModal(
                         placeholder="Enter new channel name"
                         aria-label="Edit channel name"
                     />
-                    <button className={modalStyles.button}>Set</button>
+                    <button className={modalStyles.button} aria-label="Set channel name">
+                        Set
+                    </button>
                 </form>
             </div>
 
@@ -51,6 +61,7 @@ export const EditChannelNameModal = forwardRef(function EditChannelNameModal(
                 id="close"
                 className={modalStyles.close}
                 onClick={(e) => closeModal(e, setIsModalOpen)}
+                aria-label="close edit channel name modal"
             >
                 {'\u2A2F'}
             </button>

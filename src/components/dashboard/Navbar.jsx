@@ -4,7 +4,11 @@ export function Navbar({ page, setPage, friendRequests }) {
     return (
         <footer>
             <nav className={styles.navbar}>
-                <button className={styles.page} onClick={() => setPage('channels')}>
+                <button
+                    className={styles.page}
+                    onClick={() => setPage('channels')}
+                    aria-label="channel list"
+                >
                     <svg
                         viewBox="0 0 24 24"
                         className={page === 'channels' ? styles.active : ''}
@@ -19,7 +23,11 @@ export function Navbar({ page, setPage, friendRequests }) {
                     </svg>
                 </button>
 
-                <button className={styles.page} onClick={() => setPage('friends')}>
+                <button
+                    className={styles.page}
+                    onClick={() => setPage('friends')}
+                    aria-label="friends list"
+                >
                     <svg
                         viewBox="0 0 24 24"
                         className={page === 'friends' ? styles.active : ''}
@@ -36,7 +44,11 @@ export function Navbar({ page, setPage, friendRequests }) {
                     )}
                 </button>
 
-                <button className={styles.page} onClick={() => setPage('settings')}>
+                <button
+                    className={styles.page}
+                    onClick={() => setPage('settings')}
+                    aria-label="settings"
+                >
                     <svg
                         viewBox="0 0 24 24"
                         className={page === 'settings' ? styles.active : ''}

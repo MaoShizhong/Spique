@@ -67,9 +67,18 @@ export function Channel() {
     return (
         <>
             {loading ? (
-                <Loading text="" />
+                <>
+                    <div className="sr-only" aria-live="polite">
+                        Loading channel
+                    </div>
+                    <Loading text="" />
+                </>
             ) : (
                 <>
+                    <div className="sr-only" aria-live="polite">
+                        Loaded channel {name}
+                    </div>
+
                     <ChannelHeader channelName={name} setChannelName={setName} />
 
                     <main

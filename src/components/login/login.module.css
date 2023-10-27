@@ -48,7 +48,6 @@
 .formSelect > button {
     border: none;
     flex: 1;
-    font-weight: 600;
 
     &:hover:not(.active) {
         color: var(--accent-l);
@@ -56,6 +55,7 @@
 
     &.active {
         color: var(--accent-d);
+        font-weight: 600;
         text-decoration: underline;
         text-underline-offset: 5px;
     }

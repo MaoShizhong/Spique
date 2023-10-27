@@ -14,6 +14,7 @@ export function ConfirmButton({ initialText, callback, buttonAlignment }) {
                         <button
                             className="bg-accented-sm"
                             onClick={() => setIsShowingConfirm(false)}
+                            aria-label={`Confirm ${initialText.toLowerCase()}? No`}
                         >
                             No
                         </button>
@@ -23,6 +24,7 @@ export function ConfirmButton({ initialText, callback, buttonAlignment }) {
                                 callback();
                                 setIsShowingConfirm(false);
                             }}
+                            aria-label={`Confirm ${initialText.toLowerCase()}? Yes`}
                         >
                             Yes
                         </button>

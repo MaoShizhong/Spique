@@ -40,12 +40,16 @@ export const AddFriendsModal = forwardRef(function AddFriendsModal(
     function friendStatus(user) {
         const friend = friends.find((friend) => friend.user.username === user.username);
 
-        if (!friend) return 'not';
+        if (!friend) return 'not a friend';
         else return friend.status;
     }
 
     return (
-        <dialog onClick={(e) => closeModal(e, setIsAddModalShowing)} ref={modalRef}>
+        <dialog onClick={(e) => closeModal(e, setIsAddModalShowing)} aria-modal ref={modalRef}>
+            <div className="sr-only" aria-live="polite">
+                Opened add friends modal
+            </div>
+
             <div className={modalStyles.modal}>
                 <input
                     type="text"
@@ -63,11 +67,19 @@ export const AddFriendsModal = forwardRef(function AddFriendsModal(
                 ) : (
                     <div className={styles.results}>
                         {searchResults.map((user) => (
-                            <div key={user._id} className={styles.friend}>
+                            <div
+                                key={user._id}
+                                className={styles.friend}
+                                aria-label={`username: ${user.username}. Status: ${friendStatus(
+                                    user
+                                )}`}
+                                tabIndex={0}
+                            >
                                 <span>{user.username}</span>
                                 {friendStatus(user) === 'incoming' ? (
                                     <RespondButtons
                                         targetUserID={user._id}
+                                        targetUserUsername={user.username}
                                         setFriends={setFriends}
                                     />
                                 ) : friendStatus(user) === 'requested' ? (
@@ -76,12 +88,14 @@ export const AddFriendsModal = forwardRef(function AddFriendsModal(
                                     <AddRemoveButton
                                         type="remove"
                                         targetUserID={user._id}
+                                        targetUserUsername={user.username}
                                         setFriends={setFriends}
                                     />
                                 ) : (
                                     <AddRemoveButton
                                         type="add"
                                         targetUserID={user._id}
+                                        targetUserUsername={user.username}
                                         setFriends={setFriends}
                                     />
                                 )}
@@ -95,6 +109,7 @@ export const AddFriendsModal = forwardRef(function AddFriendsModal(
                 id="close"
                 className={modalStyles.close}
                 onClick={(e) => closeModal(e, setIsAddModalShowing)}
+                aria-label="close find friends modal"
             >
                 {'\u2A2F'}
             </button>
