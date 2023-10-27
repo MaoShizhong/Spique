@@ -10,6 +10,8 @@ Backend API: [Repo](https://github.com/MaoShizhong/Spique-backend)
 
 -   ReactJS/Vite
 -   React Router
+-   Accessibility - fully navigable via keyboard, including comprehensive screen-reader support
+-   Password resets via email (using one-time unique secure links)
 
 ## Plans
 
