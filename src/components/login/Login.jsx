@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { fetchData } from '../../helpers/helpers';
 import { Github } from '../dashboard/Github';
-import { Loading } from '../loading/Loading';
 import { ForgotPasswordModal } from './ForgotPasswordModal';
 import { LoginForm } from './LoginForm';
 import { SignupForm } from './SignupForm';
@@ -11,7 +10,6 @@ import styles from './login.module.css';
 
 export function Login() {
     const [formType, setFormType] = useState('login');
-    const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState(null);
     const [isForgotModalShowing, setIsForgotModalShowing] = useState(false);
 
@@ -30,7 +28,6 @@ export function Login() {
 
     async function submitForm(e, demoAccount) {
         e.preventDefault();
-        setLoading(true);
 
         const form = {};
 
@@ -54,15 +51,12 @@ export function Login() {
             const user = await res.json();
 
             setUser(user);
-            setLoading(false);
         } else if (res.status === 401) {
             setErrors(true);
-            setLoading(false);
         } else {
             const errors = await res.json();
 
             setErrors(errors);
-            setLoading(false);
         }
     }
 
@@ -81,58 +75,52 @@ export function Login() {
                     <Github classObj={styles.github} />
                 </div>
 
-                {loading ? (
-                    <Loading text={formType === 'login' ? 'Logging in' : 'Creating account'} />
-                ) : (
-                    <>
-                        <nav className={styles.formSelect}>
-                            <button
-                                className={formType === 'login' ? styles.active : ''}
-                                onClick={() => changeForm('login')}
-                                aria-label="Switch to login screen"
-                            >
-                                Login
-                            </button>
-                            <button
-                                className={formType === 'signup' ? styles.active : ''}
-                                onClick={() => changeForm('signup')}
-                                aria-label="Switch to account creation screen"
-                            >
-                                Create account
-                            </button>
-                        </nav>
+                <nav className={styles.formSelect}>
+                    <button
+                        className={formType === 'login' ? styles.active : ''}
+                        onClick={() => changeForm('login')}
+                        aria-label="Switch to login screen"
+                    >
+                        Login
+                    </button>
+                    <button
+                        className={formType === 'signup' ? styles.active : ''}
+                        onClick={() => changeForm('signup')}
+                        aria-label="Switch to account creation screen"
+                    >
+                        Create account
+                    </button>
+                </nav>
 
-                        <form className={styles.loginSignup} onSubmit={submitForm}>
-                            {formType === 'login' ? (
-                                <>
-                                    <LoginForm
-                                        hasError={errors}
-                                        setIsForgotModalShowing={setIsForgotModalShowing}
-                                    />
+                <form className={styles.loginSignup} onSubmit={submitForm}>
+                    {formType === 'login' ? (
+                        <>
+                            <LoginForm
+                                hasError={errors}
+                                setIsForgotModalShowing={setIsForgotModalShowing}
+                            />
 
-                                    <div className={styles.demo}>
-                                        <button
-                                            type="button"
-                                            onClick={(e) => submitForm(e, 1)}
-                                            aria-label="Login with demo account 1"
-                                        >
-                                            Demo account 1
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={(e) => submitForm(e, 2)}
-                                            aria-label="Login with demo account 2"
-                                        >
-                                            Demo account 2
-                                        </button>
-                                    </div>
-                                </>
-                            ) : (
-                                <SignupForm errors={errors} />
-                            )}
-                        </form>
-                    </>
-                )}
+                            <div className={styles.demo}>
+                                <button
+                                    type="button"
+                                    onClick={(e) => submitForm(e, 1)}
+                                    aria-label="Login with demo account 1"
+                                >
+                                    Demo account 1
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={(e) => submitForm(e, 2)}
+                                    aria-label="Login with demo account 2"
+                                >
+                                    Demo account 2
+                                </button>
+                            </div>
+                        </>
+                    ) : (
+                        <SignupForm errors={errors} />
+                    )}
+                </form>
             </div>
 
             {isForgotModalShowing && (
