@@ -1,10 +1,12 @@
 .message {
     background-color: var(--bg-l);
     border-radius: 0.5rem;
+    border-top-left-radius: 0;
     display: flex;
     flex-direction: column;
     max-width: 60%;
     padding: 0.5rem;
+    position: relative;
     white-space: pre-wrap;
     word-break: break-word;
 
@@ -15,7 +17,35 @@
     &.own {
         align-self: flex-end;
         background-color: var(--accent-d);
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0;
     }
+}
+
+.message:not(.own)::before {
+    background-color: transparent;
+    border-top-right-radius: 1rem;
+    box-shadow: 1rem 0 0 0 var(--bg-l);
+    content: '';
+    height: 1rem;
+    left: -2rem;
+    position: absolute;
+    top: 0;
+    width: 2rem;
+    z-index: -10;
+}
+
+.own::before {
+    background-color: transparent;
+    border-top-left-radius: 1rem;
+    box-shadow: -1rem 0 0 0 var(--accent-d);
+    content: '';
+    height: 1rem;
+    position: absolute;
+    right: -2rem;
+    top: 0;
+    width: 2rem;
+    z-index: -10;
 }
 
 .details {
@@ -24,14 +54,21 @@
     justify-content: space-between;
 
     & > .name {
+        font-size: 0.7rem;
         font-weight: bold;
     }
 
     & > .timestamp {
         align-items: center;
         display: flex;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
+        text-align: right;
+        white-space: pre-line;
     }
+}
+
+.own .timestamp {
+    text-align: left;
 }
 
 .own > .details {

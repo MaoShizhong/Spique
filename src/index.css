@@ -29,6 +29,11 @@ textarea {
     font-size: 95%;
 }
 
+input,
+textarea {
+    caret-color: var(--fg); /* fix for some mobile dark themes */
+}
+
 ul {
     margin-top: 0;
 }

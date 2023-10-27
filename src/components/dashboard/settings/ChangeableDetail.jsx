@@ -8,8 +8,6 @@ import styles from './settings.module.css';
 export function ChangeableDetail({ userDetail }) {
     const { user, setUser } = useContext(UserContext);
 
-    console.log(user);
-
     const [isInputDisabled, setIsInputDisabled] = useState(true);
     const [inputValue, setInputValue] = useState('');
     const [isPasswordModalShowing, setIsPasswordModalShowing] = useState(false);

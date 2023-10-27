@@ -9,7 +9,7 @@
     flex-direction: column-reverse;
     gap: 0.75rem;
     justify-content: flex-end;
-    margin: 1rem;
+    margin: 1rem 2rem;
     overflow-anchor: auto;
 
     & > .no_messages {

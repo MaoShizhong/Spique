@@ -53,6 +53,7 @@
     position: absolute;
     right: 0;
     width: min(45vw, 180px);
+    z-index: 100;
 }
 
 .menu_options {
