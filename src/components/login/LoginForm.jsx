@@ -28,7 +28,14 @@ export function LoginForm({ hasError, setIsForgotModalShowing }) {
 
             <button>Login</button>
 
-            <a href="http://localhost:5000/auth/users/facebook" className={styles.facebook}>
+            <a
+                href={`${
+                    import.meta.env.VITE_MODE === 'prod'
+                        ? import.meta.env.VITE_PROD_API
+                        : import.meta.env.VITE_DEV_API
+                }/auth/users/facebook`}
+                className={styles.facebook}
+            >
                 <div className={styles.facebook_logo}></div>
                 Login with Facebook
             </a>
