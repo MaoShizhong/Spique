@@ -27,6 +27,13 @@ export default function App() {
         }
 
         autoLogin();
+
+        // Remove #_=_ path in URL when logging in via Facebook
+        if (window.location.hash === '#_=_') {
+            history.replaceState
+                ? history.replaceState(null, null, window.location.href.split('#')[0])
+                : (window.location.hash = '');
+        }
     }, [goTo]);
 
     return (

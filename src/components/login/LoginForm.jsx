@@ -1,6 +1,6 @@
 import styles from './login.module.css';
 
-export function LoginForm({ hasError }) {
+export function LoginForm({ hasError, setIsForgotModalShowing }) {
     return (
         <>
             <div className="sr-only" aria-live="polite">
@@ -27,6 +27,19 @@ export function LoginForm({ hasError }) {
             {hasError && <p className={styles.error}>Incorrect username or password</p>}
 
             <button>Login</button>
+
+            <a href="http://localhost:5000/auth/users/facebook" className={styles.facebook}>
+                <div className={styles.facebook_logo}></div>
+                Login with Facebook
+            </a>
+
+            <button
+                type="button"
+                className={styles.forgot}
+                onClick={() => setIsForgotModalShowing(true)}
+            >
+                Forgot password?
+            </button>
         </>
     );
 }

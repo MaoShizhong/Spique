@@ -70,16 +70,17 @@ export function ChangeableDetail({ userDetail }) {
 
         // prevent changing user details if demo account
         if (user.isDemo) return;
-
-        setIsPasswordModalShowing(true);
+        else if (user.isFacebook) setPasswordConfirmed(true);
+        else setIsPasswordModalShowing(true);
     }
 
     return (
         <>
-            <form className={styles.form} onSubmit={(e) => changeUserDetails(e, 'username')}>
-                <label htmlFor="username">
+            <form className={styles.form} onSubmit={(e) => changeUserDetails(e)}>
+                <label htmlFor={userDetail}>
                     {userDetail[0].toUpperCase()}
-                    {userDetail.slice(1)}:
+                    {userDetail.slice(1)}
+                    {userDetail === 'email' ? ' (only for password reset)' : ''}:
                 </label>
 
                 <input

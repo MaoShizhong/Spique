@@ -68,12 +68,12 @@
     width: min(80vw, 360px);
 }
 
-.loginSignup button {
-    background-color: color-mix(in hsl, var(--accent-d) 60%, var(--bg-l));
+.loginSignup > button:not(.forgot),
+.demo > button,
+.facebook {
     background-color: var(--accent-d);
     border-radius: 0.75rem;
     color: var(--fg);
-    margin-top: 1.5rem;
     padding: 0.35rem;
 
     &:hover {
@@ -82,11 +82,34 @@
     }
 }
 
+.loginSignup > button:first-of-type,
+.demo {
+    margin-top: 1.5rem;
+}
+
+.facebook {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    width: 100%;
+}
+
+.facebook .facebook_logo {
+    background-image: url('/facebook.png');
+    background-size: contain;
+    height: 1.25rem;
+    width: 1.25rem;
+}
+
+.facebook:hover .facebook_logo {
+    background-image: url('/facebook_contrast.png');
+}
+
 .forgot {
     align-self: flex-end;
     font-size: 0.75rem;
     font-style: italic;
-    margin-top: 0.5rem;
 
     &:hover {
         color: var(--accent-l);
@@ -110,7 +133,6 @@
 .demo {
     display: flex;
     justify-content: space-between;
-    margin-top: -1.25rem;
 
     & > button {
         width: 45%;

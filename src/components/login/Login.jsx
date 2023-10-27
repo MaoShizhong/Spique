@@ -44,7 +44,7 @@ export function Login() {
             }
         }
 
-        const endpoint = formType === 'login' ? '/auth/sessions' : '/auth/users';
+        const endpoint = formType === 'login' ? '/auth/sessions/local' : '/auth/users';
 
         const res = await fetchData(endpoint, 'POST', form);
 
@@ -105,7 +105,11 @@ export function Login() {
                         <form className={styles.loginSignup} onSubmit={submitForm}>
                             {formType === 'login' ? (
                                 <>
-                                    <LoginForm hasError={errors} />
+                                    <LoginForm
+                                        hasError={errors}
+                                        setIsForgotModalShowing={setIsForgotModalShowing}
+                                    />
+
                                     <div className={styles.demo}>
                                         <button
                                             type="button"
@@ -127,16 +131,6 @@ export function Login() {
                                 <SignupForm errors={errors} />
                             )}
                         </form>
-
-                        {formType === 'login' && (
-                            <button
-                                type="button"
-                                className={styles.forgot}
-                                onClick={() => setIsForgotModalShowing(true)}
-                            >
-                                Forgot password?
-                            </button>
-                        )}
                     </>
                 )}
             </div>

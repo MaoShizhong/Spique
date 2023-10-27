@@ -61,6 +61,11 @@ export function SignupForm({ errors }) {
             </p>
 
             <button>Create account</button>
+
+            <a href="http://localhost:5000/auth/users/facebook" className={styles.facebook}>
+                <div className={styles.facebook_logo}></div>
+                Create account using Facebook
+            </a>
         </>
     );
 }
