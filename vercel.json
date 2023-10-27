@@ -2,7 +2,7 @@
     "rewrites": [
         {
             "source": "/api/:match*",
-            "destination": "http://localhost:5000/:match*"
+            "destination": "https://spique.adaptable.app/:match*"
         },
         {
             "source": "/(.*)",
