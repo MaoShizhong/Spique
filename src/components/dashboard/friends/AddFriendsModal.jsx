@@ -6,7 +6,7 @@ import { RespondButtons } from './friend_request_buttons/RespondButtons';
 import styles from './friends.module.css';
 
 export const AddFriendsModal = forwardRef(function AddFriendsModal(
-    { friends, setFriends, setIsAddModalShowing },
+    { isDemo, friends, setFriends, setIsAddModalShowing },
     modalRef
 ) {
     const [searchText, setSearchText] = useState('');
@@ -76,7 +76,9 @@ export const AddFriendsModal = forwardRef(function AddFriendsModal(
                                 tabIndex={0}
                             >
                                 <span>{user.username}</span>
-                                {friendStatus(user) === 'incoming' ? (
+                                {isDemo && user.username === 'MaoShizhong' ? (
+                                    <div>{':)'}</div>
+                                ) : friendStatus(user) === 'incoming' ? (
                                     <RespondButtons
                                         targetUserID={user._id}
                                         targetUserUsername={user.username}

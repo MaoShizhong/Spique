@@ -1,4 +1,5 @@
-import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import { Fragment, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { UserContext } from '../../../App';
 import { Filter } from '../Filter';
 import { AddFriendsModal } from './AddFriendsModal';
 import { AddRemoveButton } from './friend_request_buttons/AddRemoveButton';
@@ -6,6 +7,8 @@ import { RespondButtons } from './friend_request_buttons/RespondButtons';
 import styles from './friends.module.css';
 
 export function FriendsList({ friends, setFriends }) {
+    const { user } = useContext(UserContext);
+
     const [filteredFriends, setFilteredFriends] = useState(friends);
     const [isAddModalShowing, setIsAddModalShowing] = useState(false);
 
@@ -64,7 +67,9 @@ export function FriendsList({ friends, setFriends }) {
                                     tabIndex={0}
                                 >
                                     <span>{friend.user.username}</span>
-                                    {friend.status === 'incoming' ? (
+                                    {user.isDemo && friend.user.username === 'MaoShizhong' ? (
+                                        <div>{':)'}</div>
+                                    ) : friend.status === 'incoming' ? (
                                         <RespondButtons
                                             targetUserID={friend.user._id}
                                             targetUserUsername={friend.user.username}
@@ -89,6 +94,7 @@ export function FriendsList({ friends, setFriends }) {
 
             {isAddModalShowing && (
                 <AddFriendsModal
+                    isDemo={user.idDemo}
                     friends={friends}
                     setFriends={setFriends}
                     setIsAddModalShowing={setIsAddModalShowing}
