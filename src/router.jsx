@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
+import { AutoLogin } from './components/AutoLogin';
 import { Channel } from './components/channels/Channel';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { DeleteAccount } from './components/delete_account/DeleteAccount';
@@ -17,8 +18,10 @@ export const router = createBrowserRouter([
             { path: '/', element: <Dashboard /> },
             { path: '/dashboard', element: <Dashboard /> },
             { path: '/channels/:channelID', element: <Channel /> },
+            { path: '/login/:token', element: <AutoLogin /> },
         ],
     },
+
     {
         path: '/password-reset/:resetID',
         element: <PasswordReset />,

@@ -23,3 +23,4 @@ Backend API: [Repo](https://github.com/MaoShizhong/Spique-backend)
 -   Allow editing/deleting messages
 -   Profile avatars
 -   E2E encryption
+    a

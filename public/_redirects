@@ -1,2 +1,2 @@
-/api/* https://spique.adaptable.app/:splat 200
+/api/* https://test-spique.adaptable.app/:splat 200
 /* /index.html 200

@@ -15,6 +15,8 @@ export default function App() {
 
     useEffect(() => {
         async function autoLogin() {
+            if (window.location.pathname.includes('login')) return;
+
             const res = await fetchData('/auth/sessions', 'GET');
 
             if (res instanceof Error) {
@@ -27,13 +29,6 @@ export default function App() {
         }
 
         autoLogin();
-
-        // Remove #_=_ path in URL when logging in via Facebook
-        if (window.location.hash === '#_=_') {
-            history.replaceState
-                ? history.replaceState(null, null, window.location.href.split('#')[0])
-                : (window.location.hash = '');
-        }
     }, [goTo]);
 
     return (
@@ -43,7 +38,7 @@ export default function App() {
                 setUser: setUser,
             }}
         >
-            {user ? <Outlet /> : <Login />}
+            {window.location.pathname.includes('login') || user ? <Outlet /> : <Login />}
         </UserContext.Provider>
     );
 }
