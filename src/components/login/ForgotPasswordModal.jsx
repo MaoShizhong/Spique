@@ -10,14 +10,14 @@ export const ForgotPasswordModal = forwardRef(function ForgotPasswordModal(
         e.preventDefault();
 
         const res = await fetchData('/auth/password-tokens', 'POST', {
-            userEmail: e.target.email.value,
+            username: e.target.username.value,
         });
 
         if (res instanceof Error) {
             alert('Something went wrong with the server. Please try again later.');
         } else {
             alert(
-                'Password reset request received.\nIf this email is associated with an account then an email will be sent containing a unique password reset link.'
+                'Password reset request received.\nIf an account exists with this username, a unique one-time-use password reset link will be sent to the email associated with it.'
             );
         }
 
@@ -31,16 +31,16 @@ export const ForgotPasswordModal = forwardRef(function ForgotPasswordModal(
             </div>
 
             <form className={modalStyles.modal} onSubmit={sendPasswordResetEmail}>
-                <label htmlFor="email">
-                    Please enter the email registered to your account below:
+                <label htmlFor="username">
+                    Please enter the username registered to your account below:
                 </label>
 
                 <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Please enter your email"
-                    aria-label="email to send password reset link to"
+                    id="username"
+                    name="username"
+                    type="test"
+                    placeholder="Please enter your username"
+                    aria-label="username for the account to email password reset link to"
                     required
                 />
 

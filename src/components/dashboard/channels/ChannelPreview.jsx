@@ -4,8 +4,15 @@ import styles from './channel_list.module.css';
 
 export function ChannelPreview({ channel, username }) {
     const latestMsg = channel.latestMessage;
-    const author =
-        latestMsg && latestMsg.user.username !== username ? latestMsg.user.username : 'You';
+
+    let author;
+    if (latestMsg && !latestMsg.user) {
+        author = 'deleted account';
+    } else if (latestMsg && latestMsg.user.username !== username) {
+        author = latestMsg.user.username;
+    } else {
+        author = 'You';
+    }
 
     return (
         <Link

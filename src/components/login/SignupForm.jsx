@@ -67,11 +67,11 @@ export function SignupForm({ errors }) {
                     import.meta.env.VITE_MODE === 'prod'
                         ? import.meta.env.VITE_PROD_API
                         : import.meta.env.VITE_DEV_API
-                }/auth/users/facebook`}
-                className={styles.facebook}
+                }/auth/users/github`}
+                className={styles.github_login}
             >
-                <div className={styles.facebook_logo}></div>
-                Create account using Facebook
+                <img src="/github.png" alt="github login logo" />
+                Create account using Github
             </a>
         </>
     );

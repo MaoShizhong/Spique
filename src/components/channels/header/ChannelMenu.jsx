@@ -6,7 +6,7 @@ import { AddParticipantModal } from './AddParticipantModal';
 import { EditChannelNameModal } from './EditChannelNameModal';
 import styles from './header.module.css';
 
-export function ChannelMenu({ channelName, setChannelName, closeMenu }) {
+export function ChannelMenu({ channelName, setChannelName, closeMenu, top }) {
     const { channelID } = useParams();
 
     const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
@@ -38,7 +38,7 @@ export function ChannelMenu({ channelName, setChannelName, closeMenu }) {
                 Opened channel options menu
             </div>
 
-            <div className={styles.menu}>
+            <div className={styles.menu} style={{ top: top }}>
                 <ul className={styles.menu_options}>
                     <li>
                         <button onClick={() => setIsAddUserModalOpen(!isAddUserModalOpen)}>

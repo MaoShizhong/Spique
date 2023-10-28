@@ -64,7 +64,7 @@ export function Dashboard() {
 
                     <main className={styles.content}>
                         {page === 'channels' ? (
-                            <ChannelList channels={channels} friends={friends} />
+                            <ChannelList friends={friends} channels={channels} />
                         ) : page === 'friends' ? (
                             <FriendsList friends={friends} setFriends={setFriends} />
                         ) : (

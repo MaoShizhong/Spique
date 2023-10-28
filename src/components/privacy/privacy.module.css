@@ -1,0 +1,29 @@
+.privacy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5rem;
+    margin-inline: auto;
+    padding: 1em;
+    width: min(1000px, 90vw);
+
+    & > a {
+        align-self: center;
+    }
+
+    & p {
+        margin-block: 0.25rem;
+    }
+
+    & li {
+        margin-left: 3rem;
+    }
+
+    & a {
+        text-decoration: underline;
+        transition: 120ms ease;
+
+        &:hover {
+            color: var(--accent-l);
+        }
+    }
+}

@@ -29,7 +29,7 @@ export function ChannelHeader({ channelName, setChannelName }) {
                 {channelName}
             </h1>
 
-            <button
+            <div
                 id="menu"
                 className={`${styles.button} ${styles.options}`}
                 onClick={(e) => {
@@ -38,6 +38,7 @@ export function ChannelHeader({ channelName, setChannelName }) {
                 onMouseEnter={() => setIsMenuOpen(true)}
                 onMouseLeave={() => setIsMenuOpen(false)}
                 aria-label={isMenuOpen ? 'close channel options' : 'open channel options'}
+                role="button"
                 tabIndex={0}
             >
                 {isMenuOpen ? (
@@ -61,7 +62,7 @@ export function ChannelHeader({ channelName, setChannelName }) {
                         closeMenu={() => setIsMenuOpen(false)}
                     />
                 )}
-            </button>
+            </div>
         </header>
     );
 }

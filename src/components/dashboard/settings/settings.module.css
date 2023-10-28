@@ -2,7 +2,9 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    margin-top: 4rem;
+    min-height: 100%;
+    padding-bottom: 1rem;
+    padding-top: 4rem;
 }
 
 .form {
@@ -37,4 +39,16 @@
 .demo {
     color: var(--error);
     font-size: 0.8rem;
+}
+
+.privacy {
+    font-style: italic;
+    margin-top: auto;
+    text-align: center;
+    transition: 120ms ease;
+
+    &:hover {
+        color: var(--accent-l);
+        text-decoration: underline;
+    }
 }

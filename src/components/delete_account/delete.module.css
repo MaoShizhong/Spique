@@ -1,0 +1,15 @@
+.main {
+    display: grid;
+    place-content: center;
+
+    & > p {
+        text-align: center;
+    }
+}
+
+.return {
+    margin-inline: auto;
+    text-align: center;
+    transition: 120ms ease;
+    width: 65%;
+}

@@ -70,7 +70,7 @@
 
 .loginSignup > button:not(.forgot),
 .demo > button,
-.facebook {
+.github_login {
     background-color: var(--accent-d);
     border-radius: 0.75rem;
     color: var(--fg);
@@ -87,23 +87,17 @@
     margin-top: 1.5rem;
 }
 
-.facebook {
+.github_login {
     align-items: center;
     display: flex;
     gap: 0.5rem;
     justify-content: center;
     width: 100%;
-}
 
-.facebook .facebook_logo {
-    background-image: url('/facebook.png');
-    background-size: contain;
-    height: 1.25rem;
-    width: 1.25rem;
-}
-
-.facebook:hover .facebook_logo {
-    background-image: url('/facebook_contrast.png');
+    & > img {
+        height: 1.25rem;
+        width: 1.25rem;
+    }
 }
 
 .forgot {

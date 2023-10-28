@@ -2,8 +2,10 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import { Channel } from './components/channels/Channel';
 import { Dashboard } from './components/dashboard/Dashboard';
+import { DeleteAccount } from './components/delete_account/DeleteAccount';
 import { ErrorPage } from './components/error/ErrorPage';
 import { PasswordReset } from './components/password_reset/PasswordReset';
+import { PrivacyPolicy } from './components/privacy/PrivacyPolicy';
 
 export const router = createBrowserRouter([
     {
@@ -20,5 +22,13 @@ export const router = createBrowserRouter([
     {
         path: '/password-reset/:resetID',
         element: <PasswordReset />,
+    },
+    {
+        path: '/delete-account/:resetID',
+        element: <DeleteAccount />,
+    },
+    {
+        path: '/privacy',
+        element: <PrivacyPolicy />,
     },
 ]);

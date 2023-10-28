@@ -97,7 +97,9 @@ export function Channel() {
                                         <Message
                                             key={message._id}
                                             message={message}
-                                            isOwnMessage={user._id === message.user._id}
+                                            isOwnMessage={
+                                                user._id === message.user && message.user._id
+                                            }
                                         />
                                     ))}
 

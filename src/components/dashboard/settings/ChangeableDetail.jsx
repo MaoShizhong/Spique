@@ -42,11 +42,7 @@ export function ChangeableDetail({ userDetail }) {
 
                 alert(`${userDetail[0].toUpperCase()}${userDetail.slice(1)} successfully updated!`);
             } else if (res.status === 403) {
-                const errorMsg =
-                    userDetail === 'username'
-                        ? 'Username already taken.'
-                        : 'Email already registered to another account.';
-                setError(errorMsg);
+                setError('Username already taken.');
             } else if (res.status === 400) {
                 const errorMsg =
                     userDetail === 'username'
@@ -70,7 +66,7 @@ export function ChangeableDetail({ userDetail }) {
 
         // prevent changing user details if demo account
         if (user.isDemo) return;
-        else if (user.isFacebook) setPasswordConfirmed(true);
+        if (user.isGithub) setPasswordConfirmed(true);
         else setIsPasswordModalShowing(true);
     }
 
@@ -96,7 +92,11 @@ export function ChangeableDetail({ userDetail }) {
                     required
                 />
 
-                {error && <div className={styles.error}>{error}</div>}
+                {error && (
+                    <div className={styles.error} aria-live="polite">
+                        {error}
+                    </div>
+                )}
 
                 {user.isDemo ? (
                     <div className={styles.demo}>Unable to change details on demo account</div>
@@ -113,10 +113,16 @@ export function ChangeableDetail({ userDetail }) {
                     </button>
                 ) : (
                     <div className={styles.set}>
-                        <button type="button" onClick={() => setIsInputDisabled(true)}>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setInputValue('');
+                                setIsInputDisabled(true);
+                            }}
+                        >
                             Cancel
                         </button>
-                        <button type="submit" aria-label="set new username">
+                        <button type="submit" aria-label={`set new ${userDetail}`}>
                             Set
                         </button>
                     </div>

@@ -36,6 +36,23 @@ export function Settings() {
         goTo('/');
     }
 
+    async function sendDeleteConfirmationEmail() {
+        if (user.isDemo) {
+            alert('This feature does not work for demo accounts.');
+            return;
+        }
+
+        const res = await fetchData(`/users/${user._id}`, 'DELETE');
+
+        if (res instanceof Error || !res.ok) {
+            goTo('/error');
+        } else {
+            alert(
+                'An email containing an account deletion confirmation link has been sent to the email associated with this account.'
+            );
+        }
+    }
+
     return (
         <div className={styles.settings}>
             <div className="sr-only" aria-live="polite">
@@ -44,15 +61,28 @@ export function Settings() {
 
             <ChangeableDetail userDetail="username" />
 
-            <ChangeableDetail userDetail="email" />
+            {!user.isGithub && (
+                <>
+                    <ChangeableDetail userDetail="email" />
+                    <ConfirmButton
+                        initialText="Request password reset"
+                        callback={sendPasswordResetEmail}
+                        buttonAlignment="center"
+                    />
+                </>
+            )}
+
+            <ConfirmButton initialText="Logout" callback={logout} buttonAlignment="center" />
 
             <ConfirmButton
-                initialText="Request password reset"
-                callback={sendPasswordResetEmail}
+                initialText="Delete account"
+                callback={sendDeleteConfirmationEmail}
                 buttonAlignment="center"
             />
 
-            <ConfirmButton initialText="Logout" callback={logout} buttonAlignment="center" />
+            <a href="/privacy" target="_blank" rel="noreferrer" className={styles.privacy}>
+                Privacy policy
+            </a>
         </div>
     );
 }

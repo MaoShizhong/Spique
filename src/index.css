@@ -95,6 +95,10 @@ body {
     display: flex;
     flex-direction: column;
     height: 100svh;
+
+    &:has(.privacy) {
+        height: fit-content;
+    }
 }
 
 a {
