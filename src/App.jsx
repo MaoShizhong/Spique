@@ -17,6 +17,8 @@ export default function App() {
         async function autoLogin() {
             const res = await fetchData('/auth/sessions', 'GET');
 
+            console.log(document.cookie);
+
             if (res instanceof Error) {
                 alert('Something went wrong with the server, please try again later!');
             } else if (!res.ok) {
@@ -24,8 +26,6 @@ export default function App() {
             } else {
                 setUser(await res.json());
             }
-
-            console.log(document.cookie);
         }
 
         autoLogin();
