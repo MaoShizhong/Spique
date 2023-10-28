@@ -14,27 +14,21 @@ export default function App() {
     const goTo = useNavigate();
 
     useEffect(() => {
-        // async function autoLogin() {
-        //     const res = await fetchData('/auth/sessions', 'GET');
+        async function autoLogin() {
+            const res = await fetchData('/auth/sessions', 'GET');
 
-        //     if (res instanceof Error) {
-        //         alert('Something went wrong with the server, please try again later!');
-        //     } else if (!res.ok) {
-        //         goTo('/');
-        //     } else {
-        //         setUser(await res.json());
-        //     }
-        // }
+            if (res instanceof Error) {
+                alert('Something went wrong with the server, please try again later!');
+            } else if (!res.ok) {
+                goTo('/');
+            } else {
+                setUser(await res.json());
+            }
 
-        // autoLogin();
+            console.log(document.cookie);
+        }
 
-        // // Remove #_=_ path in URL when logging in via Facebook
-        // if (window.location.hash === '#_=_') {
-        //     history.replaceState
-        //         ? history.replaceState(null, null, window.location.href.split('#')[0])
-        //         : (window.location.hash = '');
-        // }
-        console.log(document.cookie);
+        autoLogin();
     }, [goTo]);
 
     return (
