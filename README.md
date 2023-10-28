@@ -11,8 +11,9 @@ Backend API: [Repo](https://github.com/MaoShizhong/Spique-backend)
 -   ReactJS/Vite
 -   React Router
 -   Accessibility - fully navigable via keyboard, including comprehensive screen-reader support
--   Login/account creation via Facebook
+-   Login/account creation manually or via Github
 -   Password resets via email (using one-time unique secure links)
+-   Account deletion via email (using one-time unique secure links)
 
 ## Plans
 
@@ -21,5 +22,4 @@ Backend API: [Repo](https://github.com/MaoShizhong/Spique-backend)
 -   Display and play embedded video links
 -   Allow editing/deleting messages
 -   Profile avatars
--   Alternative logins e.g. Google
 -   E2E encryption
