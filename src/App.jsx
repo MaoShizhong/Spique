@@ -15,15 +15,14 @@ export default function App() {
 
     useEffect(() => {
         async function autoLogin() {
-            const res = await fetchData('/auth/sessions', 'GET');
+            if (window.location.pathname.includes('login')) return;
 
-            console.log(document.cookie);
-            console.log('status', res.status);
+            const res = await fetchData('/auth/sessions', 'GET');
 
             if (res instanceof Error) {
                 alert('Something went wrong with the server, please try again later!');
             } else if (!res.ok) {
-                console.log(await res.json());
+                goTo('/');
             } else {
                 setUser(await res.json());
             }
@@ -44,17 +43,7 @@ export default function App() {
                 setUser: setUser,
             }}
         >
-            {user ? <Outlet /> : <Login />}
-            <button
-                style={{ bottom: '3rem', right: '3rem', position: 'fixed' }}
-                onClick={async () => {
-                    const res = await fetchData('/auth/test');
-
-                    console.log(res.status, res);
-                }}
-            >
-                REDIRECT
-            </button>
+            {window.location.pathname.includes('login') || user ? <Outlet /> : <Login />}
         </UserContext.Provider>
     );
 }

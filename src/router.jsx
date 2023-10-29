@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
             { path: '/dashboard', element: <Dashboard /> },
             { path: '/channels/:channelID', element: <Channel /> },
             {
-                path: '/login/:loginID',
+                path: '/login/:userID',
                 element: <AutoLogin />,
             },
         ],
