@@ -17,7 +17,10 @@ export default function App() {
 
     useEffect(() => {
         async function autoLogin() {
-            if (window.location.pathname.includes('login')) return;
+            if (window.location.pathname.includes('login')) {
+                setInitialising(false);
+                return;
+            }
 
             const res = await fetchData('/auth/sessions/all', 'GET');
 
