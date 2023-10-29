@@ -21,15 +21,25 @@ export default function App() {
 
             console.log('status', res.status);
 
-            console.log(res);
+            try {
+                console.log('text:', await res.text());
+            } catch (err) {
+                console.log('error:', err);
 
-            if (res instanceof Error) {
-                alert('Something went wrong with the server, please try again later!');
-            } else if (!res.ok) {
-                goTo('/');
-            } else {
-                setUser(await res.json());
+                try {
+                    console.log('json:', await res.json());
+                } catch (error) {
+                    console.log('jsonerror:', error);
+                }
             }
+
+            // if (res instanceof Error) {
+            //     alert('Something went wrong with the server, please try again later!');
+            // } else if (!res.ok) {
+            //     goTo('/');
+            // } else {
+            //     setUser(await res.json());
+            // }
         }
 
         autoLogin();
