@@ -19,6 +19,10 @@ export default function App() {
 
             const res = await fetchData('/auth/sessions', 'GET');
 
+            console.log('status', res.status);
+
+            console.log(res);
+
             if (res instanceof Error) {
                 alert('Something went wrong with the server, please try again later!');
             } else if (!res.ok) {
