@@ -18,6 +18,7 @@ export default function App() {
             const res = await fetchData('/auth/sessions', 'GET');
 
             console.log(document.cookie);
+            console.log(res.status);
 
             if (res instanceof Error) {
                 alert('Something went wrong with the server, please try again later!');
@@ -30,6 +31,11 @@ export default function App() {
 
         autoLogin();
     }, [goTo]);
+
+    useEffect(() => {
+        if (user) console.log(user);
+        else console.log('first');
+    }, [user]);
 
     return (
         <UserContext.Provider
