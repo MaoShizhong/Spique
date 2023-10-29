@@ -31,11 +31,6 @@ export default function App() {
         autoLogin();
     }, [goTo]);
 
-    useEffect(() => {
-        if (user) console.log(user);
-        else console.log('first');
-    }, [user]);
-
     return (
         <UserContext.Provider
             value={{
