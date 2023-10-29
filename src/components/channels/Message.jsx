@@ -14,7 +14,13 @@ export function Message({ message, isOwnMessage }) {
     }
 
     return (
-        <article className={classes}>
+        <article
+            className={classes}
+            tabIndex={0}
+            aria-description={`Message sent by ${author}. ${message.text}. Sent on ${toTimestamp(
+                message.timestamp
+            )}`}
+        >
             <div className={styles.details}>
                 <span className={styles.name}>{author}</span>
                 <span className={styles.timestamp}>{toTimestamp(message.timestamp)}</span>
