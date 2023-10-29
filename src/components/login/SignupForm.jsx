@@ -42,6 +42,7 @@ export function SignupForm({ errors }) {
                 type="password"
                 placeholder="Password"
                 aria-label="enter password"
+                autoComplete="new-password"
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
                 required
             />
@@ -51,6 +52,7 @@ export function SignupForm({ errors }) {
                 type="password"
                 placeholder="Confirm password"
                 aria-label="confirm password"
+                autoComplete="off"
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
                 required
             />

@@ -12,7 +12,7 @@ export function LoginForm({ hasError, setIsForgotModalShowing }) {
                 type="text"
                 placeholder="Username"
                 aria-label="enter username"
-                autoComplete="off"
+                autoComplete="username"
                 required
             />
 
@@ -20,6 +20,7 @@ export function LoginForm({ hasError, setIsForgotModalShowing }) {
                 name="password"
                 type="password"
                 placeholder="Password"
+                autoComplete="current-password"
                 aria-label="enter password"
                 required
             />

@@ -17,7 +17,7 @@ export default function App() {
         async function autoLogin() {
             if (window.location.pathname.includes('login')) return;
 
-            const res = await fetchData('/auth/sessions', 'GET');
+            const res = await fetchData('/auth/sessions/all', 'GET');
 
             if (res instanceof Error) {
                 alert('Something went wrong with the server, please try again later!');
