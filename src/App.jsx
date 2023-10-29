@@ -18,12 +18,12 @@ export default function App() {
             const res = await fetchData('/auth/sessions', 'GET');
 
             console.log(document.cookie);
-            console.log(res.status);
+            console.log('status', res.status);
 
             if (res instanceof Error) {
                 alert('Something went wrong with the server, please try again later!');
             } else if (!res.ok) {
-                goTo('/');
+                console.log(await res.json());
             } else {
                 setUser(await res.json());
             }
