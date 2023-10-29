@@ -19,27 +19,13 @@ export default function App() {
 
             const res = await fetchData('/auth/sessions', 'GET');
 
-            console.log('status', res.status);
-
-            try {
-                console.log('text:', await res.text());
-            } catch (err) {
-                console.log('error:', err);
-
-                try {
-                    console.log('json:', await res.json());
-                } catch (error) {
-                    console.log('jsonerror:', error);
-                }
+            if (res instanceof Error) {
+                alert('Something went wrong with the server, please try again later!');
+            } else if (!res.ok) {
+                goTo('/');
+            } else {
+                setUser(await res.json());
             }
-
-            // if (res instanceof Error) {
-            //     alert('Something went wrong with the server, please try again later!');
-            // } else if (!res.ok) {
-            //     goTo('/');
-            // } else {
-            //     setUser(await res.json());
-            // }
         }
 
         autoLogin();
