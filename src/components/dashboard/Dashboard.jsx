@@ -54,7 +54,7 @@ export function Dashboard() {
     return (
         <>
             {loading ? (
-                <Loading text="Logging in" />
+                <Loading text="" />
             ) : (
                 <>
                     <header className={styles.welcome}>
