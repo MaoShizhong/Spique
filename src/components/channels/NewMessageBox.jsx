@@ -28,7 +28,7 @@ export function NewMessageBox({ channelID, setMessages, setLatestMessageAction }
 
             setMessages((prev) => [newMessage, ...prev]);
             setLatestMessageAction('add');
-            e.target.text.value = '';
+            setMessageText('');
         } else {
             goTo('/error');
         }
@@ -39,6 +39,7 @@ export function NewMessageBox({ channelID, setMessages, setLatestMessageAction }
             <textarea
                 name="text"
                 placeholder="Message"
+                value={messageText}
                 aria-label="enter message"
                 onKeyDown={handleEnterKey}
                 onInput={(e) => {
