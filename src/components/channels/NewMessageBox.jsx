@@ -7,22 +7,25 @@ const MESSAGE_CHAR_LIMIT = 2000;
 
 export function NewMessageBox({ channelID, setMessages, setLatestMessageAction }) {
     const [messageText, setMessageText] = useState('');
+    const [isMessageSent, setIsMessageSent] = useState(false);
 
     const goTo = useNavigate();
 
     async function sendMessage(e) {
         e.preventDefault();
 
-        if (!messageText || messageText.length > MESSAGE_CHAR_LIMIT) {
+        if (!messageText || messageText.length > MESSAGE_CHAR_LIMIT || isMessageSent) {
             return;
         }
+
+        setIsMessageSent(true);
 
         const res = await fetchData(`/channels/${channelID}/messages`, 'POST', {
             text: messageText,
         });
 
         if (res instanceof Error) {
-            goTo('/error');
+            alert('Something went wrong with the server, please try again later.');
         } else if (res.ok) {
             const newMessage = await res.json();
 
@@ -32,6 +35,8 @@ export function NewMessageBox({ channelID, setMessages, setLatestMessageAction }
         } else {
             goTo('/error');
         }
+
+        setIsMessageSent(false);
     }
 
     return (
