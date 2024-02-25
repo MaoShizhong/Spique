@@ -5,7 +5,7 @@ const domain =
 
 export async function fetchData(endpoint, method, form) {
     const options = {
-        credentials: 'include',
+        credentials: 'same-origin',
         method: method,
     };
 
